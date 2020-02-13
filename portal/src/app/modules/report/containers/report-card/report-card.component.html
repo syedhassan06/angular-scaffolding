@@ -1,0 +1,240 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>Report Card</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb customBreadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/report">Reports</a></li>
+          <li class="breadcrumb-item active"><a>Report Card</a></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <ngx-spinner
+                bdOpacity="1"
+                bdColor="rgb(228, 228, 228,0.9)"
+                size="medium"
+                color="#305850"
+                type="ball-clip-rotate-multiple"
+                fullScreen="false"
+              >
+              </ngx-spinner>
+              <div class="row">
+                <div class="col-md-3 pr-0">
+                  <div class="form-group">
+                    <label for="">DealerGroup</label>
+                    <p-dropdown
+                      (onChange)="onChangeDealergroup()"
+                      [options]="dealergroups"
+                      [styleClass]="!filter.dealergroup && 'is-invalid'"
+                      [(ngModel)]="filter.dealergroup.value"
+                      [filterPlaceholder]="filter.dealergroup.placeholder"
+                      [placeholder]="filter.dealergroup.placeholder"
+                      optionLabel="name"
+                      [showClear]="true"
+                      [style]="{ width: '100%' }"
+                      filter="true"
+                      showClear="true"
+                    >
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-md-3  pr-0">
+                  <div class="form-group">
+                    <label for="">Dealership</label>
+                    <p-multiSelect
+                      (onChange)="onChangeDealership()"
+                      [options]="dealerships"
+                      [styleClass]="!filter.dealership && 'is-invalid'"
+                      [(ngModel)]="filter.dealership.value"
+                      [filterPlaceHolder]="filter.dealership.placeholder"
+                      [defaultLabel]="filter.dealership.placeholder"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                    >
+                    </p-multiSelect>
+                  </div>
+                </div>
+                <div class="col-md-3  pr-0">
+                  <div class="form-group">
+                    <label for="">Course</label>
+                    <p-dropdown
+                      (onChange)="onChangeCourse()"
+                      [options]="courses"
+                      [styleClass]="!filter.course && 'is-invalid'"
+                      [(ngModel)]="filter.course.value"
+                      [filterPlaceholder]="filter.course.placeholder"
+                      [placeholder]="filter.course.placeholder"
+                      optionLabel="title"
+                      [showClear]="true"
+                      [style]="{ width: '100%' }"
+                      filter="true"
+                      showClear="true"
+                    >
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label for="">&nbsp;</label>
+                    <button
+                      [disabled]="
+                        !(
+                          filter?.dealership?.value &&
+                          filter?.dealership?.value?.length > 0
+                        )
+                      "
+                      class="btn btn-dark btn-block"
+                      (click)="onGenerateReport()"
+                    >
+                      <i class="fas fa-cog"></i> Generate
+                    </button>
+                  </div>
+                </div>
+                <div class="clearfix col-md-12 mb-2"></div>
+                <div class="col-md-3  pr-0">
+                  <div class="form-group">
+                    <label for="">Registration From</label>
+                    <p-calendar
+                      showButtonBar="true"
+                      (onSelect)="onChangeDate()"
+                      [showIcon]="true"
+                      dateFormat="mm/dd/yy"
+                      [(ngModel)]="filter.fromDate.value"
+                      styleClass="d-block"
+                      readonlyInput="false"
+                      placeholder="mm/dd/yy"
+                      inputStyleClass="armd-datepicker-icon"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+                <div class="col-md-3  pr-0">
+                  <div class="form-group">
+                    <label for="">Registration To</label>
+                    <p-calendar
+                      showButtonBar="true"
+                      (onSelect)="onChangeDate()"
+                      [showIcon]="true"
+                      dateFormat="mm/dd/yy"
+                      placeholder="mm/dd/yy"
+                      [(ngModel)]="filter.toDate.value"
+                      styleClass="d-block"
+                      readonlyInput="false"
+                      inputStyleClass="armd-datepicker-icon"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <hr />
+                  <p-table
+                    [value]="dataSource"
+                    exportFilename="Report Card"
+                    [columns]="cols"
+                    [paginator]="true"
+                    [rows]="20"
+                    [rowHover]="true"
+                    selectionMode="single"
+                    reorderableColumns="true"
+                    [scrollHeight]="'1000px'"
+                    sortMode="multiple"
+                    #lmsDt
+                  >
+                    <ng-template pTemplate="caption">
+                      <div class="filterbar">
+                        <div class="form-inline">
+                          <div class="form-group mb-2">
+                            <button
+                              class="btn btn-dark"
+                              (click)="lmsDt.exportCSV()"
+                            >
+                              <i class="fas fa-file-export pr-1"></i>
+                              Export to Excel
+                            </button>
+                          </div>
+                          <div class="form-group mb-2 pl-2">
+                            <lms-export-pdf-report
+                              [table]="lmsDt"
+                              [cols]="cols"
+                              title="Report Card"
+                              [header]="reportTitle"
+                            ></lms-export-pdf-report>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                    <ng-template pTemplate="colgroup" let-columns>
+                      <colgroup>
+                        <col *ngFor="let col of columns" />
+                      </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th
+                          *ngFor="let col of columns"
+                          [pSortableColumn]="col.field"
+                        >
+                          {{ col.header }}
+                          <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                      </tr>
+                      <tr
+                        lms-column-filter
+                        [cols]="cols"
+                        [table]="lmsDt"
+                        class="filter-cols"
+                      ></tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                      <tr>
+                        <td [attr.colspan]="columns.length" class="text-center">
+                          <h5 class="p-2 m-0">No Records Found</h5>
+                        </td>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-data>
+                      <tr>
+                        <td>{{ data?.name }}</td>
+                        <td>{{ data?.title || '-' }}</td>
+                        <td>
+                          <div class="courseProgressHolder mt-3">
+                            <lms-progressbar
+                              [value]="data?.progress"
+                            ></lms-progressbar>
+                          </div>
+                        </td>
+                        <td>{{ data?.registration_date || '-' }}</td>
+                        <td>{{ data?.starting_date || '-' }}</td>
+                        <td>{{ data?.completion_date || '-' }}</td>
+                        <td>{{ data?.certificate_expiration_date || '-' }}</td>
+                        <td>{{ data?.expiration_date || '-' }}</td>
+                        <td>
+                          {{ (data?.no_of_logins | number: '2.0-0') || '-' }}
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

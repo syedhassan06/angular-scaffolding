@@ -1,0 +1,150 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>{{ page[action]['title'] }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb customBreadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/material/manage">All Materials</a>
+          </li>
+          <li class="breadcrumb-item active">
+            <a>{{ page[action]['title'] }}</a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="materialListSec">
+            <div
+              *ngFor="let file of files; let fileIndex = index"
+              class="materialListRow mb-4"
+            >
+              <b>{{ file?.name }} ({{ file?.size | fileSize: 2 }})</b>
+              <div class="progress">
+                <div
+                  class="progress-bar progress-bar-striped bg-dark"
+                  role="progressbar"
+                  [style.width]="file?.progress?.data?.percentage + '%'"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+              <a
+                class="btn btn-dark text-white d-none"
+                (click)="cancelUpload(file?.id)"
+                ><i class="fas fa-times"></i
+              ></a>
+            </div>
+            <div
+              *ngFor="let material of materials"
+              class="materialListRow mb-4 d-none"
+            >
+              <b>{{ material.name }} ({{ material.size | fileSize: 3 }})</b>
+              <div class="progress">
+                <div
+                  class="progress-bar progress-bar-striped bg-dark"
+                  role="progressbar"
+                  [style.width]="progressReport + '%'"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+              <!-- <a class="btn btn-dark text-white" (click)="onRemoveFile(material)"><i class="fas fa-trash-alt"></i></a> -->
+            </div>
+          </div>
+          <div class="mb-3 form-horizontal" *ngIf="action === 'edit'">
+            <div class="form-group row">
+              <label class="control-label col-sm-2">Material Name : </label>
+              <div class="col-md-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="resourceName"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="mediaAddBtnHolder">
+            <div class="custom-file customBtnFile d-block">
+              <input
+                class="custom-file-input"
+                type="file"
+                ngFileSelect
+                [options]="options"
+                (uploadOutput)="onUploadOutput($event)"
+                [uploadInput]="uploadInput"
+                multiple
+              />
+              <button class="btn btn-dark btn-block">
+                <i class="fas fa-upload iconLeft"></i> Browse Materials
+              </button>
+            </div>
+            <div class="custom-file customBtnFile d-none">
+              <p-fileUpload
+                name="materials[]"
+                multiple="multiple"
+                accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf,video/*"
+                maxFileSize="1000000"
+                chooseLabel="Upload Materials"
+                [showCancelButton]="false"
+                [showUploadButton]="false"
+                [url]="baseUrl + 'resource'"
+                #materialFileControl
+                (onSelect)="onSelectFileUploader()"
+                (onUpload)="onUploadSuccess()"
+                (onProgress)="showingProgress($event)"
+                customUpload="true"
+                (uploadHandler)="doUpload($event)"
+              >
+                >
+                <ng-template pTemplate="toolbar">
+                  <!-- <input class="custom-file-input" type="file"> -->
+                  <!-- <button class="btn btn-dark btn-block" (click)="doUpload(materialFileControl)">
+                        <i class="fas fa-file iconLeft"></i>
+                        Upload Materials
+                      </button> -->
+                </ng-template>
+              </p-fileUpload>
+            </div>
+          </div>
+          <!-- <div class="text-center">
+            <small class="mt-2 text-muted">You can upload Photos, videos and Documents</small>
+          </div> -->
+          <div
+            class="d-table uploaded-file-holder mt-3"
+            *ngIf="selectedResource"
+          >
+            <i class="fas fa-file d-table-cell fa-2x"></i>
+            <span class="d-table-cell pl-2 align-middle text-muted text-green"
+              ><strong>{{ selectedResource?.resource_path }}</strong></span
+            >
+          </div>
+
+          <div class="text-center mt-3">
+            <button
+              class="btn btn-green"
+              (click)="onSave()"
+              style="min-width: 120px;"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

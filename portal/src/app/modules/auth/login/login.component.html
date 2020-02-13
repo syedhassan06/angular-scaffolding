@@ -1,0 +1,143 @@
+<svg
+  style="position: absolute; width: 0; height: 0;"
+  width="0"
+  height="0"
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+  <defs>
+    <symbol id="icon-arrow_left" viewBox="0 0 24 24">
+      <path
+        d="M15.422 16.078l-1.406 1.406-6-6 6-6 1.406 1.406-4.594 4.594z"
+      ></path>
+    </symbol>
+    <symbol id="icon-arrow_right" viewBox="0 0 24 24">
+      <path
+        d="M8.578 16.359l4.594-4.594-4.594-4.594 1.406-1.406 6 6-6 6z"
+      ></path>
+    </symbol>
+  </defs>
+</svg>
+<div class="loginContainer">
+  <div class="loginBgSec">
+    <video muted loop>
+      <source
+        src="https://getarmd.com/static/ARMD-2748-6aa79a23968fe1a3cf079e0817481d4b.webm"
+        type="video/webm"
+      />
+      <source
+        src="https://getarmd.com/static/ARMD-2748-85f601fa6243e5008827aadba0ac5d21.mp4"
+        type="video/mp4"
+      />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <div class="loginFormContainer">
+    <div class="loginFormWrapper">
+      <div class="loginFormSec">
+        <div class="loginLogoSec mb-4">
+          <img src="assets/img/logo-green.png" alt="logo" />
+        </div>
+        <form [formGroup]="loginForm" *ngIf="isLoginForm">
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <input
+                class="form-control"
+                id="email"
+                type="text"
+                placeholder="Email"
+                formControlName="email"
+                lmsValidationBorder
+              />
+              <div class="invalid-feedback" ngxErrors="email">
+                <div when="touched" [ngxError]="['required', 'email']">
+                  Invalid email address
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <input
+                class="form-control"
+                id="password"
+                type="password"
+                placeholder="**********"
+                formControlName="password"
+                lmsValidationBorder
+              />
+              <div class="invalid-feedback" ngxErrors="password">
+                <div when="touched" [ngxError]="['required']">
+                  Password field is required
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 forgotSec mb-3">
+              <div class="custom-control custom-checkbox invisible">
+                <input
+                  class="custom-control-input"
+                  id="admin"
+                  type="checkbox"
+                />
+                <label class="custom-control-label" for="admin"
+                  >Remember me</label
+                >
+              </div>
+              <a href="javascript:void(0);" (click)="isLoginForm = false"
+                >Forgot Password?</a
+              >
+            </div>
+            <div class="col-md-12 text-center">
+              <button
+                class="btn btn-green btn-block"
+                type="button"
+                (keyup.enter)="onLoggedIn()"
+                (click)="onLoggedIn()"
+                [disabled]="loginForm?.invalid"
+              >
+                Login
+              </button>
+            </div>
+          </div>
+        </form>
+        <div
+          [formGroup]="forgotPasswordForm"
+          *ngIf="!isLoginForm"
+          [@slideInOut]
+        >
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <input
+                class="form-control"
+                id="rp-email"
+                type="text"
+                placeholder="Email"
+                formControlName="email"
+                lmsValidationBorder
+              />
+              <div class="invalid-feedback" ngxErrors="email">
+                <div when="touched" [ngxError]="['required', 'email']">
+                  Invalid email address
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 text-center">
+              <button
+                class="btn btn-green btn-block"
+                type="button"
+                (click)="onSendEmail()"
+                [disabled]="forgotPasswordForm?.invalid"
+              >
+                Send Email
+              </button>
+            </div>
+            <div class="col-md-12 mt-3">
+              <a class="cursor-pointer text-black" (click)="isLoginForm = true">
+                <i class="fas fa-chevron-left pr-1"></i>Back To Login
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="switcher-loading-icon" [@slide]="isLoaderToggle ? 'in' : 'out'">
+  <div class="switcher-text">
+    <i class="fas fa-spinner rotation"></i>
+    <h5>Role Switching...</h5>
+  </div>
+</div>
+<div class="mt-2"></div>
+<p-dropdown
+  (onChange)="switchLogin()"
+  placeholder="Role"
+  baseZIndex="20000"
+  [options]="roles"
+  [(ngModel)]="selectedRole"
+  dropdownIcon="pi pi-chevron-circle-down"
+  [style]="{ width: '100%' }"
+  optionLabel="value"
+>
+</p-dropdown>

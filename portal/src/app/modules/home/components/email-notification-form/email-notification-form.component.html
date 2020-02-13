@@ -1,0 +1,156 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>{{ page[action]['title'] }}</h2>
+        <!--
+          <div><a class="btn btn-dark mr-1" href="/admin.html"><i class="fas fa-arrow-alt-circle-left iconLeft"></i>Back</a></div>
+        -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb customBreadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/email-setting">All Emails</a>
+          </li>
+          <li class="breadcrumb-item active"><a>Setting</a></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <form action="" [formGroup]="emailForm">
+            <h6 class="border-bottom mt-2 pb-2">
+              <i class="far fa-envelope "></i> Email Details
+            </h6>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label>Action</label>
+                <input
+                  [readOnly]="emailForm?.get('id')?.value"
+                  class="form-control"
+                  type="text"
+                  placeholder="Action"
+                  formControlName="action"
+                  lmsValidationBorder
+                />
+                <div class="invalid-feedback" ngxErrors="action">
+                  <div when="touched" [ngxError]="['required']">
+                    Email Action is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label>Subject</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Subject"
+                  formControlName="email_subject"
+                  lmsValidationBorder
+                />
+                <div class="invalid-feedback" ngxErrors="email_subject">
+                  <div when="touched" [ngxError]="['required']">
+                    Email Subject is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label>Message Body</label>
+                <p-editor
+                  formControlName="email_content"
+                  [style]="{ height: '200px' }"
+                ></p-editor>
+              </div>
+            </div>
+            <section>
+              <h6 class="border-bottom mt-2 pb-2">
+                <i class="far fa-bell"></i> Send Notification
+              </h6>
+              <div class="row my-3">
+                <div class="col-md-3">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      class="custom-control-input"
+                      [attr.id]="'send_to_user'"
+                      type="checkbox"
+                      formControlName="send_to_user"
+                    />
+                    <label
+                      class="custom-control-label"
+                      [attr.for]="'send_to_user'"
+                      >Email to User</label
+                    >
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      class="custom-control-input"
+                      [attr.id]="'send_to_manager'"
+                      type="checkbox"
+                      formControlName="send_to_manager"
+                    />
+                    <label
+                      class="custom-control-label"
+                      [attr.for]="'send_to_manager'"
+                      >Email to Manager</label
+                    >
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      class="custom-control-input"
+                      [attr.id]="'send_to_log'"
+                      type="checkbox"
+                      formControlName="send_to_log"
+                    />
+                    <label
+                      class="custom-control-label"
+                      [attr.for]="'send_to_log'"
+                      >Email to Admin</label
+                    >
+                  </div>
+                  <div *ngIf="emailForm?.get('send_to_log')?.value">
+                    <p-chips
+                      (onAdd)="onAddChipValues($event)"
+                      styleClass="d-block"
+                      formControlName="log_email_address"
+                      [allowDuplicate]="false"
+                      placeholder="Enter multiple e-mail address"
+                    ></p-chips>
+                    <p class="small font-weight-bold">
+                      You can enter multiple email addresses, by press ENTER key
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <div class="text-center mt-4">
+              <button
+                class="btn btn-green mx-1"
+                type="button"
+                [disabled]="emailForm?.invalid || emailForm?.invalid"
+                (click)="onSave()"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,400 @@
+<div class="modal-header">
+  <h5 class="modal-title pull-left">
+    <i class="fas fa-calendar mr-2"></i>{{ page[action].title }}
+  </h5>
+  <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"
+    (click)="bsModalRef.hide()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <ngx-spinner
+    bdOpacity="0.9"
+    bdColor="rgb(228, 228, 228,0.9)"
+    size="medium"
+    color="#305850"
+    type="ball-clip-rotate-multiple"
+    fullScreen="false"
+  >
+  </ngx-spinner>
+  <div class="row">
+    <div class="col-md-12" [formGroup]="scheduleForm">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>Schedule Title</label>
+          <input
+            lmsValidationBorder
+            formControlName="schedule_title"
+            class="form-control"
+            type="text"
+            placeholder="Schedule Description"
+          />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>Report Type</label>
+          <!-- [(ngModel)]="filter.dealergroup.value" [filterPlaceholder]="filter.dealergroup.placeholder" [placeholder]="filter.dealergroup.placeholder" -->
+          <p-dropdown
+            formControlName="report_type"
+            [options]="reportTypes"
+            [styleClass]="
+              scheduleForm?.get('report_type')?.value ||
+              (scheduleForm?.get('report_type')?.touched && 'is-invalid')
+            "
+            [style]="{ width: '100%' }"
+            placeholder="Please Select"
+            filter="true"
+            autoDisplayFirst="true"
+          >
+          </p-dropdown>
+        </div>
+
+        <div class="col-md-12 mb-3">
+          <label>BCC Email Addresses</label>
+          <p-chips
+            styleClass="d-block"
+            formControlName="bcc_email_addresses"
+            [allowDuplicate]="false"
+            placeholder="Enter multiple e-mail address"
+          ></p-chips>
+          <small>
+            You can enter multiple email addresses, by press ENTER key
+          </small>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>Email Subject</label>
+          <input
+            formControlName="email_subject"
+            class="form-control"
+            type="text"
+            placeholder="Email Subject"
+            lmsValidationBorder
+          />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>Report Of</label>
+          <div class="clearfix"></div>
+          <div class="custom-control custom-radio d-inline-block mr-2">
+            <input
+              class="custom-control-input"
+              id="customCheck45"
+              [value]="'all'"
+              type="radio"
+              formControlName="report_of_type"
+            />
+            <label class="custom-control-label" for="customCheck45"
+              >All Time Data</label
+            >
+          </div>
+          <div class="custom-control custom-radio d-inline-block">
+            <input
+              class="custom-control-input"
+              id="customCheck46"
+              [value]="'recent'"
+              type="radio"
+              formControlName="report_of_type"
+            />
+            <label class="custom-control-label" for="customCheck46"
+              >Most Recent</label
+            >
+          </div>
+
+          <!-- <p-calendar
+            formControlName="daterange"
+            [inputStyleClass]="(!(scheduleForm?.get('daterange')?.value) && (scheduleForm?.get('daterange')?.touched && 'is-invalid  form-control')) || 'form-control'"
+            appendTo="body"
+            [readonlyInput]="false"
+            [monthNavigator]="true"
+            [yearNavigator]="true"
+            yearRange="2000:2030"
+            baseZIndex="23"
+            selectionMode="range"
+            dateFormat="mm/dd/yy"
+            placeholder="mm/dd/yyyy - mm/dd/yyyy"
+            [required]="true"
+            showButtonBar="true"
+            [style]="{'width':'100%'}"
+            panelStyleClass="dtfilter-date-panel"
+          >
+          </p-calendar> -->
+        </div>
+        <div class="col-md-12 mb-3">
+          <label>Email Body</label>
+          <textarea
+            class="form-control"
+            formControlName="email_body"
+            rows="2"
+            lmsValidationBorder
+          ></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <section class="col-md-12 mb-3">
+          <h6 class="border-bottom mt-2 pb-2">
+            <i class="fas fa-chart-bar"></i> Get Report Of
+          </h6>
+          <div class="row">
+            <div class="col-md-4">
+              <label>Select Type</label>
+              <p-dropdown
+                (onChange)="onChangeReportOf($event.value, reportOfUserEvent)"
+                [options]="userReport.report_of.source"
+                [styleClass]="
+                  scheduleForm?.get('report_of')?.value ||
+                  (scheduleForm?.get('report_of')?.touched && 'is-invalid')
+                "
+                [style]="{ width: '100%' }"
+                placeholder="Please Select"
+                filter="true"
+                autoDisplayFirst="true"
+                formControlName="report_of"
+              >
+              </p-dropdown>
+            </div>
+            <div
+              class="col-md-8"
+              [ngClass]="{
+                invisible: scheduleForm.get('report_of').value === 'all_users'
+              }"
+            >
+              <label>&nbsp;</label>
+              <ng-select
+                (change)="onFocusReportOfUsers(reportOfUserEvent)"
+                #reportOfUserEvent
+                [items]="userReport.report_of.users"
+                placeholder="Select Users"
+                [loading]="userReport.report_of.loading ? true : false"
+                [searchFn]="searcReporthUserCallback"
+                [multiple]="true"
+                [groupBy]="
+                  scheduleForm.get('report_of').value !== 'other_users'
+                    ? 'childs'
+                    : null
+                "
+                [selectableGroup]="true"
+                [closeOnSelect]="false"
+                formControlName="report_of_users"
+              >
+                <ng-template ng-label-tmp let-item="item">
+                  <div class="armd-label">
+                    <i
+                      class="fas fa-times cursor-pointer"
+                      (click)="
+                        onRemoveUserFromFormControl(item, 'report_of_users')
+                      "
+                    ></i>
+                    <span class="seprator">|</span>
+                    <b>{{ item.label }}</b>
+                  </div>
+                </ng-template>
+                <ng-template
+                  class="armd-hierarchy-group"
+                  ng-optgroup-tmp
+                  let-item="item"
+                  let-item$="item$"
+                  let-index="index"
+                >
+                  <p-checkbox
+                    [label]="item.label"
+                    id="item-{{ index }}"
+                    [ngModelOptions]="{ standalone: true }"
+                    [ngModel]="item$.selected"
+                    name="item-{{ index }}"
+                    binary="true"
+                  >
+                  </p-checkbox>
+                </ng-template>
+                <ng-template
+                  ng-option-tmp
+                  let-item="item"
+                  let-item$="item$"
+                  let-index="index"
+                >
+                  <p-checkbox
+                    [label]="item?.label"
+                    [id]="'dealership-' + index"
+                    [value]="item?.value"
+                    [ngModelOptions]="{ standalone: true }"
+                    [ngModel]="item$.selected"
+                    [name]="'dealership-' + index"
+                    binary="true"
+                  >
+                  </p-checkbox>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+        </section>
+        <section class="col-md-12 mb-3">
+          <h6 class="border-bottom mt-2 pb-2">
+            <i class="far fa-paper-plane"></i> Send Report To
+          </h6>
+          <div class="row">
+            <div class="col-md-4">
+              <label>Select Type</label>
+              <p-dropdown
+                (onChange)="onChangeReportTo($event.value, reportToUserEvent)"
+                [options]="userReport.report_to.source"
+                [styleClass]="
+                  scheduleForm?.get('report_to')?.value ||
+                  (scheduleForm?.get('report_to')?.touched && 'is-invalid')
+                "
+                [style]="{ width: '100%' }"
+                placeholder="Please Select"
+                filter="true"
+                autoDisplayFirst="true"
+                formControlName="report_to"
+              >
+              </p-dropdown>
+            </div>
+            <div class="col-md-8">
+              <label>&nbsp;</label>
+              <ng-select
+                (change)="onFocusReportOfUsers(reportToUserEvent)"
+                #reportToUserEvent
+                [items]="userReport.report_to.users"
+                placeholder="Select Users"
+                [loading]="userReport.report_to.loading ? true : false"
+                [searchFn]="searcReporthUserCallback"
+                [multiple]="true"
+                [groupBy]="null"
+                [selectableGroup]="true"
+                [closeOnSelect]="false"
+                formControlName="report_to_users"
+              >
+                <ng-template ng-label-tmp let-item="item">
+                  <div class="armd-label">
+                    <i
+                      class="fas fa-times cursor-pointer"
+                      (click)="
+                        onRemoveUserFromFormControl(item, 'report_to_users')
+                      "
+                    ></i>
+                    <span class="seprator">|</span>
+                    <b>{{ item.label }}</b>
+                  </div>
+                </ng-template>
+                <ng-template
+                  class="armd-hierarchy-group"
+                  ng-optgroup-tmp
+                  let-item="item"
+                  let-item$="item$"
+                  let-index="index"
+                >
+                  <p-checkbox
+                    [label]="item.label"
+                    id="item-{{ index }}"
+                    [ngModelOptions]="{ standalone: true }"
+                    [ngModel]="item$.selected"
+                    name="item-{{ index }}"
+                    binary="true"
+                  >
+                  </p-checkbox>
+                </ng-template>
+                <ng-template
+                  ng-option-tmp
+                  let-item="item"
+                  let-item$="item$"
+                  let-index="index"
+                >
+                  <p-checkbox
+                    [label]="item?.label"
+                    [id]="'dealership-' + index"
+                    [value]="item?.value"
+                    [ngModelOptions]="{ standalone: true }"
+                    [ngModel]="item$.selected"
+                    [name]="'dealership-' + index"
+                    binary="true"
+                  >
+                  </p-checkbox>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <section class="col-md-12" [formGroup]="scheduleTimelineForm">
+      <h6 class="border-bottom mt-2 pb-2">
+        <i class="far fa-clock"></i> Schedule Timelines
+      </h6>
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label>Schedule</label>
+          <p-dropdown
+            formControlName="schedule_type"
+            (onChange)="onChangeSchedule($event)"
+            [options]="dataSource?.schedule"
+            [style]="{ width: '100%' }"
+          >
+          </p-dropdown>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label>Start Time</label>
+          <p-calendar
+            formControlName="start_time"
+            hourFormat="12"
+            [timeOnly]="true"
+            styleClass="armd-date-w100"
+            inputStyleClass="form-control"
+          ></p-calendar>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label>Date</label>
+          <p-calendar
+            formControlName="start_date"
+            autoDisplayFirst="true"
+            showClear="true"
+            placeholder="mm/dd/yyyy"
+            inputStyleClass="form-control"
+            styleClass="armd-date-w100"
+            [readonlyInput]="true"
+            dateFormat="mm/dd/yy"
+          >
+          </p-calendar>
+        </div>
+      </div>
+      <div
+        class="row mt-3"
+        *ngIf="scheduleTimelineForm?.get('selected')?.value == 'weekly'"
+      >
+        <div class="col-md-12 text-center">
+          <small class="text-dark font-weight-bold mr-2">Every</small>
+          <p-dropdown
+            formControlName="weekly"
+            [options]="dataSource?.weekDays"
+            [style]="{ 'padding-right': '0rem' }"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+      <div
+        class="row mt-3"
+        *ngIf="scheduleTimelineForm?.get('selected')?.value == 'monthly'"
+      >
+        <div class="col-md-12 text-center">
+          <small class="text-dark font-weight-bold mr-2">Day</small>
+          <input
+            type="text"
+            class="form-control form-control d-inline-block"
+            style="width: 65px;"
+            formControlName="monthly"
+          />
+          <small class="text-dark font-weight-bold ml-2">of the month</small>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-dark" type="button" (click)="bsModalRef.hide()">
+    Close
+  </button>
+  <button class="btn btn-green" type="button" (click)="onSave()">
+    Save
+  </button>
+</div>

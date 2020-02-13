@@ -1,0 +1,188 @@
+<div class="modal-header">
+  <h5 class="modal-title">
+    <i class="fas fa-file iconLeft"></i> {{ page[action]?.title }}
+  </h5>
+  <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"
+    (click)="modalRef.hide()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body" [formGroup]="assignmentForm">
+  <div class="row form-horizontal mb-4">
+    <label class="col-md-2 control-label">Title</label>
+    <div class="col-md-10">
+      <input
+        class="form-control"
+        type="text"
+        placeholder="Title"
+        formControlName="title"
+        lmsValidationBorder
+      />
+      <div class="invalid-feedback" ngxErrors="title">
+        <div when="touched" [ngxError]="['required']">
+          Title is required
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row form-horizontal mb-4">
+    <label class="col-md-2 control-label">Description</label>
+    <div class="col-md-10">
+      <p-editor
+        formControlName="description"
+        [style]="{ height: '100px' }"
+        [styleClass]="
+          assignmentForm?.get('description').invalid && 'is-invalid'
+        "
+      ></p-editor>
+      <div class="invalid-feedback" ngxErrors="description">
+        <div when="touched" [ngxError]="['description']">
+          Description is required
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row form-horizontal mb-4">
+    <label class="col-md-2 control-label">Marks</label>
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group  ui-float-label">
+            <input
+              class="form-control"
+              type="text"
+              formControlName="passing_marks"
+              id="passing_marks"
+              pInputText
+              pKeyFilter="num"
+            />
+            <label class="form-control-placeholder" for="passing_marks"
+              >Passing Marks</label
+            >
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group  ui-float-label">
+            <input
+              class="form-control"
+              type="text"
+              formControlName="total_marks"
+              id="total_marks"
+              pInputText
+              pKeyFilter="num"
+            />
+            <label class="form-control-placeholder" for="total_marks"
+              >Total Marks</label
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <h6 class="border-bottom mt-3"><i class="fas fa-folder"></i> Resource</h6>
+    </div>
+    <div class="col-md-4">
+      <div class="custom-control custom-radio d-inline-block">
+        <input
+          class="custom-control-input"
+          id="customCheck45"
+          [value]="0"
+          type="radio"
+          formControlName="resource_option"
+        />
+        <label class="custom-control-label" for="customCheck45">None</label>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="custom-control custom-radio d-inline-block">
+        <input
+          class="custom-control-input"
+          id="customCheck46"
+          [value]="1"
+          type="radio"
+          formControlName="resource_option"
+        />
+        <label class="custom-control-label" for="customCheck46"
+          >Uploaded Resource</label
+        >
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="custom-control custom-radio d-inline-block">
+        <input
+          class="custom-control-input"
+          id="customCheck47"
+          [value]="2"
+          type="radio"
+          formControlName="resource_option"
+        />
+        <label class="custom-control-label" for="customCheck47"
+          >New Resource</label
+        >
+      </div>
+    </div>
+    <div
+      class="col-md-12 mb-3 mt-3"
+      *ngIf="assignmentForm.get('resource_option')?.value == 1"
+    >
+      <p-dropdown
+        [options]="resources"
+        [styleClass]="
+          assignmentForm?.get('resource_id').touched &&
+          assignmentForm?.get('resource_id').invalid &&
+          'is-invalid'
+        "
+        formControlName="resource_id"
+        placeholder="Select Resource"
+        optionLabel="name"
+        [showClear]="true"
+        [style]="{ width: '100%' }"
+        filter="true"
+        showClear="true"
+        filterPlaceholder="Select Resource"
+      >
+      </p-dropdown>
+      <div
+        class="invalid-feedback"
+        [ngClass]="{
+          'd-block':
+            assignmentForm?.get('resource_id').touched &&
+            assignmentForm?.get('resource_id').invalid
+        }"
+      >
+        Resource field is required
+      </div>
+    </div>
+    <div
+      class="col-md-12 mb-3 mt-3"
+      *ngIf="assignmentForm.get('resource_option')?.value == 2"
+    >
+      <div class="custom-file mt-3 mb-3">
+        <input
+          type="file"
+          class="custom-file-input"
+          id="new-resource"
+          #fileRef
+          (change)="onChangeResourceFile(fileRef)"
+        />
+        <label class="custom-file-label" for="new-resource">
+          {{ fileResource?.name || 'No Resource Selected' }}
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-dark" type="button" (click)="modalRef.hide()">
+    Close
+  </button>
+  <button class="btn btn-green" type="button" (click)="onSave()">
+    Save
+  </button>
+</div>

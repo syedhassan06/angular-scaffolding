@@ -1,0 +1,48 @@
+<div class="modal-header">
+  <h5 class="modal-title pull-left">
+    Login History ( {{ user.first_name + ' ' + user.last_name }} )
+    <small *ngIf="user.email">{{ user.email }}</small>
+  </h5>
+  <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"
+    (click)="bsModalRef.hide()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-12 ui-widget">
+      <p-table
+        [value]="user?.login_details"
+        [responsive]="true"
+        tableStyleClass="table table-bordered tableGrid"
+        #dealerGroupTable
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Logged In</th>
+            <th>Logged Out</th>
+            <th>Duration (Minutes)</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-login>
+          <tr>
+            <td>{{ login?.login_date_time }}</td>
+            <td>{{ login?.logout_date_time || '-' }}</td>
+            <td class="align-middle">
+              {{ login?.diff_in_mins | number: '2.0-0' }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-dark" type="button" (click)="bsModalRef.hide()">
+    Close
+  </button>
+</div>

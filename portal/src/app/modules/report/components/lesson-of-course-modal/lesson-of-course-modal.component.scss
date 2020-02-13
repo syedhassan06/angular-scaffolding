@@ -1,0 +1,36 @@
+:host ::ng-deep .ui-table .ui-table-thead > tr > th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  z-index: 150;
+}
+
+@media screen and (max-width: 64em) {
+  :host ::ng-deep .ui-table .ui-table-thead > tr > th {
+    top: 0px;
+  }
+}
+
+.ui-table-scrollable-header-box {
+  margin-right: 17px !important;
+}
+
+.ui-table-scrollable-body {
+  margin-right: 17px !important;
+}
+///// this code below is for width of the scroll bar
+::-webkit-scrollbar {
+  width: 10px;
+}
+.ui-table-scrollable-header {
+  overflow-y: scroll;
+}
+
+.ui-table-scrollable-header {
+  overflow-y: scroll;
+}
+.ui-table .ui-table-tbody > tr > td,
+.ui-table-thead > tr > th {
+  min-width: 150px !important;
+  max-width: 150px !important;
+}

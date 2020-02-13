@@ -1,0 +1,32 @@
+$remove-color: #c73442;
+hr.question-seprator {
+  border-top: 1px dashed #8c8b8b;
+  margin-top: 0.1rem;
+  margin-bottom: 0.5rem;
+}
+hr.question-seprator:after {
+  display: inline-block;
+  position: relative;
+  top: -12px;
+  left: 40px;
+  padding: 0 3px;
+  background: #f0f0f0;
+  color: #8c8b8b;
+  font-size: 18px;
+}
+.question-wrapper:nth-last-of-type(1) hr.question-seprator {
+  border: none;
+}
+.option-remove i {
+  position: relative;
+  right: 6px;
+  top: -6px;
+  cursor: pointer;
+  font-size: 16px;
+  color: $remove-color;
+}
+.question-remove {
+  color: $remove-color;
+  font-size: 16px;
+  cursor: pointer;
+}

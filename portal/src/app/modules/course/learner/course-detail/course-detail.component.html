@@ -1,0 +1,199 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>{{ course?.title }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="courseListingHolder">
+            <ngx-spinner
+              bdOpacity="0.9"
+              bdColor="rgb(228, 228, 228,0.9)"
+              size="medium"
+              color="#305850"
+              type="ball-clip-rotate-multiple"
+              fullScreen="false"
+            >
+            </ngx-spinner>
+            <h5 class="mt-0 pb-2 border-bottom">Detail</h5>
+            <div class="courseRow">
+              <div class="courseContentSec">
+                <div class="courseThumb">
+                  <img
+                    *ngIf="!course?.image"
+                    src="assets/img/course.jpg"
+                    alt="courseThumb"
+                  />
+                  <img
+                    *ngIf="course?.image"
+                    [src]="course?.image"
+                    alt="courseThumb"
+                  />
+                </div>
+                <div class="courseTitleSec">
+                  <p class="mb-1">
+                    <b>Registration Date:&nbsp;</b>{{ course?.date }}
+                  </p>
+                  <p class="mb-1">
+                    <b>Duration:&nbsp;</b>{{ course?.duration }} days
+                  </p>
+                  <p class="m-0">
+                    <b>Status:&nbsp;</b>{{ course?.status }} ({{
+                      course?.progress
+                    }}%)
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <accordion>
+                <accordion-group [isOpen]="true" #group>
+                  <h5
+                    class="mt-4 pb-2 border-bottom collapseHead collapsed accordion-head"
+                    data-toggle="collapse"
+                    data-target="#descriptionCollapse"
+                    aria-expanded="false"
+                    aria-controls="descriptionCollapse"
+                    accordion-heading
+                  >
+                    Description
+                    <span
+                      class="fas"
+                      [ngClass]="{
+                        'fa-caret-down': group?.isOpen,
+                        'fa-caret-up': !group?.isOpen
+                      }"
+                    ></span>
+                  </h5>
+                  <div [innerHTML]="course?.description"></div>
+                </accordion-group>
+              </accordion>
+            </div>
+            <h5 class="mt-4 pb-2 border-bottom">Lessons</h5>
+            <h6 class="headGreen">Required</h6>
+            <div
+              class="materialListRow mb-3 courseDetailLessonListRow"
+              *ngFor="let lesson of lessons.required; let lessonIndex = index"
+              [ngClass]="{
+                disabled: haveDisabled('required', lessonIndex, lessonIndex - 1)
+              }"
+            >
+              <b style="cursor:pointer" (click)="onClickLesson(lesson)">
+                <i class="fas fa-book pr-2"></i>
+                <span>{{ lesson?.title }}</span>
+                <small
+                  class="texxt-muted ml-2 badge"
+                  [ngClass]="{
+                    'badge-warning':
+                      (lesson?.status | lowercase) == 'registered',
+                    'badge-success':
+                      (lesson?.status | lowercase) == 'completed',
+                    'badge-primary':
+                      (lesson?.status | lowercase) == 'in-progress'
+                  }"
+                >
+                  {{ lesson?.status }}
+                </small></b
+              >
+            </div>
+            <ng-container *ngIf="lessons.optional?.length > 0">
+              <h6 class="headGreen">Additional Resources</h6>
+              <div class="mt-3">
+                <div
+                  class="materialListRow mb-3 courseDetailLessonListRow"
+                  *ngFor="let lesson of lessons.optional"
+                >
+                  <b style="cursor:pointer" (click)="onClickLesson(lesson)">
+                    <i class="fas fa-book pr-2"></i>
+                    <span>{{ lesson?.title }}</span>
+                    <small
+                      class="texxt-muted ml-2 badge"
+                      [ngClass]="{
+                        'badge-warning':
+                          (lesson?.status | lowercase) == 'registered',
+                        'badge-success':
+                          (lesson?.status | lowercase) == 'completed',
+                        'badge-primary':
+                          (lesson?.status | lowercase) == 'in-progress'
+                      }"
+                    >
+                      {{ lesson?.status }}
+                    </small></b
+                  >
+                </div>
+                <!--
+                    <div class="materialListRow mb-3">
+                      <b data-toggle="modal" data-target="#lessonModalviewer" data-reset-slider="1">
+                      Customer Complaint Management Procedures Lesson
+                      <small class="texxt-muted ml-2 badge badge-warning">In Progress</small></b>
+                    </div>
+                  -->
+                <!--
+                    <div class="materialListRow mb-3"><b>
+                      <a href="javascript:void(0)" target="_blank">Do Not Call Policy</a>
+                      <small class="texxt-muted ml-2 badge badge-success">Completed</small></b>
+                    </div>
+                  -->
+              </div>
+            </ng-container>
+            <lms-learner-assignment
+              [allAssignments]="allAssignments"
+              [course]="course"
+            ></lms-learner-assignment>
+            <div
+              class="form-inline"
+              *ngIf="
+                course?.progress == 100 &&
+                (course?.status | lowercase) != 'completed'
+              "
+            >
+              <label class="form-check-label">
+                I certify that I have read all Course content and have completed
+                this e-learning Course.
+              </label>
+
+              <button
+                class="btn btn-dark btn-sm ml-2"
+                (click)="onClickCompleteCourse()"
+              >
+                I Agree
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #template>
+  <div class="modal-header">
+    <h5 class="modal-title">{{ selectedCourseLesson?.title }}</h5>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="padding: 0.5rem">
+    <iframe
+      (load)="disableContextMenu()"
+      [src]="courseResourceUrl"
+      frameborder="0"
+      id="course-frame"
+      width="100%"
+      height="700"
+    ></iframe>
+  </div>
+</ng-template>

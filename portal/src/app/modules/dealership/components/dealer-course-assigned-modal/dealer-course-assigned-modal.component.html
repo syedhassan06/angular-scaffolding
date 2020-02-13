@@ -1,0 +1,106 @@
+<div class="modal-header">
+  <h5 class="modal-title pull-left">
+    Dealership ( {{ selectedDealership?.name }} )
+    <!-- <small *ngIf="user.email">{{ user?.email }}</small> -->
+  </h5>
+  <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"
+    (click)="bsModalRef.hide()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <ngx-spinner
+    bdOpacity="0.9"
+    bdColor="rgb(228, 228, 228,0.9)"
+    size="medium"
+    color="#305850"
+    type="ball-clip-rotate-multiple"
+    fullScreen="false"
+  >
+  </ngx-spinner>
+  <div class="row">
+    <div class="col-md-5">
+      <h6 class="armd-picklist-header">Available Courses</h6>
+      <div class="col-md-12 pl-1 pt-2 pb-2 armd-picklist-subhead">
+        <div class="custom-control custom-checkbox">
+          <input
+            class="custom-control-input"
+            type="checkbox"
+            id="select-available-dealer"
+            (click)="onCheckAllUsers('available-dealers')"
+          />
+          <label class="custom-control-label" for="select-available-dealer"
+            >Select All</label
+          >
+        </div>
+      </div>
+      <p-tree
+        [value]="availableCourses?.dataSource"
+        selectionMode="checkbox"
+        [(selection)]="availableCourses.selected"
+        styleClass="w-100"
+      >
+        <ng-template let-node pTemplate="default">
+          <span class="m-0 available-dealers">{{ node.label }}</span>
+        </ng-template>
+        <ng-template let-node pTemplate="dealership-user">
+          {{ node.label }}
+        </ng-template>
+      </p-tree>
+    </div>
+    <div class="col-md-2">
+      <button
+        class="btn btn-green btn-block mb-2"
+        (click)="onCourseUserAssigned()"
+      >
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <div class="clearfix"></div>
+      <button
+        class="btn btn-green btn-block"
+        (click)="onCourseUserUnAssigned()"
+      >
+        <i class="fas fa-chevron-left"></i>
+      </button>
+    </div>
+    <div class="col-md-5">
+      <h6 class="armd-picklist-header">Assigned Courses</h6>
+      <div class="col-md-12 pl-1 pt-2 pb-2 armd-picklist-subhead">
+        <div class="custom-control custom-checkbox">
+          <input
+            class="custom-control-input"
+            type="checkbox"
+            id="select-assigned-dealer"
+            (click)="onCheckAllUsers('assigned-dealers')"
+          />
+          <label class="custom-control-label" for="select-assigned-dealer"
+            >Select All</label
+          >
+        </div>
+      </div>
+      <p-tree
+        [emptyMessage]="'No Records'"
+        [value]="assignedCourses?.dataSource"
+        selectionMode="checkbox"
+        [(selection)]="assignedCourses.selected"
+        styleClass="w-100"
+      >
+        <ng-template let-node pTemplate="default">
+          <span class="m-0 assigned-dealers">{{ node.label }}</span>
+        </ng-template>
+        <ng-template let-node pTemplate="dealership-user">
+          {{ node.label }}
+        </ng-template>
+      </p-tree>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-dark" type="button" (click)="bsModalRef.hide()">
+    Close
+  </button>
+</div>

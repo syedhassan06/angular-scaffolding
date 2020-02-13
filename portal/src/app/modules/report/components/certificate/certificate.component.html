@@ -1,0 +1,91 @@
+<div class="certificateBg" id="armd-course-certificate">
+  <div class="cetificateHolder">
+    <div class="cetificateSp">
+      <div class="cetificateContent">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <p
+                  style="width:100%;display:flex;justify-content:space-between;align-items: center;"
+                >
+                  <span
+                    ><img
+                      width="80px"
+                      src="assets/img/certificate_graphic_1.png"
+                      alt="graphics"/></span
+                  ><img src="assets/img/logo-green.png" alt="logo" /><span
+                    ><img
+                      width="80px"
+                      src="assets/img/certificate_graphic_2.png"
+                      alt="graphics"
+                  /></span>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h2>Certificate of completion</h2>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span style="margin: 15px 0;display: block;"
+                  ><img
+                    width="80px"
+                    src="assets/img/certificate_graphic_3.png"
+                    alt="graphics"
+                /></span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h3>This certifies that</h3>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h4>
+                  {{ course?.first_name || (user$ | async)?.first_name }}
+                  <span class="m-l-1">{{
+                    course?.last_name || (user$ | async)?.last_name
+                  }}</span>
+                </h4>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h3>has successfully completed</h3>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h4>{{ course?.title }}</h4>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h5>{{ course?.completion_date }}</h5>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p style="margin: 40px 0 20px 0;">
+                  <i
+                    style="border-bottom: 1px solid #000;display: inline-block;margin-right: 15px;font-family: 'RageItalic';font-size: 2.8em;line-height: 30px;color: #002060;"
+                    >Michael Tuno</i
+                  ><span style="letter-spacing: 2px;">Founder / CEO</span>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: right;">
+                Exp: {{ course?.certificate_expiration_date }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

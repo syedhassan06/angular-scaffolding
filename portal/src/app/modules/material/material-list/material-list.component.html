@@ -1,0 +1,324 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>Manage Materials</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb customBreadcrumb">
+          <li class="breadcrumb-item active">
+            <a routerLink="/material/manage">All Materials</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a routerLink="/material/upload" href="javascript:void(0)"
+              >Upload Materials</a
+            >
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div>
+            <p-table
+              [scrollable]="true"
+              [scrollHeight]="'1000px'"
+              [value]="resources"
+              [paginator]="true"
+              [rows]="20"
+              [rowHover]="true"
+              selectionMode="single"
+              tableStyleClass="table table table-striped table-bordered tableGrid"
+              [globalFilterFields]="['name']"
+              #materialtable
+            >
+              <ng-template pTemplate="caption">
+                <div class="filterbar">
+                  <div class="form-inline">
+                    <div class="form-group ml-auto mb-2">
+                      <label class="mr-2">Search</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        (input)="
+                          materialtable.filterGlobal(
+                            $event.target.value,
+                            'contains'
+                          )
+                        "
+                      />
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+                    {{ col.header }}
+                    <p-sortIcon
+                      [field]="col.field"
+                      *ngIf="col.field"
+                    ></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-resource>
+                <tr>
+                  <!--
+                    <td class="text-center">
+                      <div class="custom-control custom-checkbox custom-without-text custom-control-inline">
+                          <input class="custom-control-input" [attr.id]="'customCheck'+resource?.id" type="checkbox">
+                          <label class="custom-control-label" [attr.for]="'customCheck1'+resource?.id"></label>
+                        </div>
+                    </td>
+                  -->
+                  <td>
+                    <a
+                      href="javascript:void(0)"
+                      (click)="shownLessonContent(resource)"
+                      >{{ resource?.name }}</a
+                    >
+                  </td>
+                  <!--
+                    <td >
+                        <div class="custom-control custom-checkbox custom-without-text custom-control-inline">
+                            <input class="custom-control-input" [attr.id]="'material-published'+resource?.id" type="checkbox">
+                            <label class="custom-control-label" [attr.for]="'material-published'+resource?.id"></label>
+                          </div>
+                    </td>
+                  -->
+                  <td class="text-center">
+                    <div
+                      class="custom-control custom-checkbox custom-without-text custom-control-inline"
+                    >
+                      <input
+                        class="custom-control-input"
+                        type="checkbox"
+                        [attr.id]="'material-published-ref' + resource?.id"
+                        (change)="
+                          onMarkedResource(
+                            resource,
+                            'reference_library',
+                            $event
+                          )
+                        "
+                        [checked]="resource?.reference_library"
+                      />
+                      <label
+                        class="custom-control-label"
+                        [attr.for]="'material-published-ref' + resource?.id"
+                      ></label>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <div
+                      class="custom-control custom-checkbox custom-without-text custom-control-inline"
+                    >
+                      <input
+                        class="custom-control-input"
+                        type="checkbox"
+                        (change)="
+                          onMarkedResource(
+                            resource,
+                            'reference_library_downloaded',
+                            $event
+                          )
+                        "
+                        [attr.id]="
+                          'material-published-ref-downloaded' + resource?.id
+                        "
+                        [checked]="resource?.reference_library_downloaded"
+                      />
+                      <label
+                        class="custom-control-label"
+                        [attr.for]="
+                          'material-published-ref-downloaded' + resource?.id
+                        "
+                      ></label>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <div
+                      class="custom-control custom-checkbox custom-without-text custom-control-inline"
+                    >
+                      <input
+                        class="custom-control-input"
+                        type="checkbox"
+                        (change)="
+                          onMarkedResource(resource, 'material', $event)
+                        "
+                        [attr.id]="'material-published-mat' + resource?.id"
+                        [checked]="resource?.material"
+                      />
+                      <label
+                        class="custom-control-label"
+                        [attr.for]="'material-published-mat' + resource?.id"
+                      ></label>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <div
+                      class="custom-control custom-checkbox custom-without-text custom-control-inline"
+                    >
+                      <input
+                        class="custom-control-input"
+                        type="checkbox"
+                        (change)="
+                          onMarkedResource(
+                            resource,
+                            'material_downloaded',
+                            $event
+                          )
+                        "
+                        [attr.id]="
+                          'material-published-mat-downloaded' + resource?.id
+                        "
+                        [checked]="resource?.material_downloaded"
+                      />
+                      <label
+                        class="custom-control-label"
+                        [attr.for]="
+                          'material-published-mat-downloaded' + resource?.id
+                        "
+                      ></label>
+                    </div>
+                  </td>
+                  <td>{{ resource?.created_at }}</td>
+                  <td>
+                    <a
+                      class="ml-2"
+                      href="javascript:void(0);"
+                      [routerLink]="'/material/edit/' + resource?.id"
+                      pTooltip="Edit"
+                      tooltipPosition="top"
+                    >
+                      <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <a
+                      class="ml-2"
+                      href="javascript:void(0);"
+                      (click)="shownLessonContent(resource)"
+                      pTooltip="View"
+                      tooltipPosition="top"
+                    >
+                      <i class="fas fa-eye"></i>
+                    </a>
+                    <a
+                      class="ml-2"
+                      href="javascript:void(0);"
+                      (click)="onOpenConfirmModal(resource)"
+                      pTooltip="Delete"
+                      tooltipPosition="top"
+                    >
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <a
+                      class="ml-2"
+                      href="javascript:void(0);"
+                      (click)="onShowUserAssignModal(resource)"
+                      pTooltip="Assign Active Material To Users"
+                      tooltipPosition="top"
+                    >
+                      <i class="fas fa-user"></i>
+                    </a>
+                    <a
+                      class="ml-2"
+                      href="javascript:void(0);"
+                      (click)="onOpenEmailModal(resource)"
+                      pTooltip="Email Template"
+                      tooltipPosition="top"
+                    >
+                      <i class="fas fa-envelope"></i>
+                    </a>
+                    <a
+                      *ngIf="resource?.email_title"
+                      class="ml-2"
+                      href="javascript:void(0);"
+                      (click)="onEmailSend(resource)"
+                      pTooltip="Send Email"
+                      tooltipPosition="top"
+                    >
+                      <i class="fas fa-paper-plane"></i>
+                    </a>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #userAssignTemplate>
+  <div class="modal-header">
+    <h5>Assign Active Material To Users</h5>
+    <button
+      class="close"
+      aria-label="Close"
+      (click)="userAssignModalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body armd-tree-list">
+    <ngx-spinner
+      bdOpacity="0.9"
+      bdColor="rgb(228, 228, 228,0.9)"
+      size="medium"
+      color="#305850"
+      type="ball-clip-rotate-multiple"
+      fullScreen="false"
+    >
+    </ngx-spinner>
+
+    <div class="row">
+      <div class="col-md-12 mb-1">
+        <div class="custom-control custom-checkbox">
+          <input
+            class="custom-control-input"
+            type="checkbox"
+            id="select-all-dealer"
+            (click)="onCheckAllUsers()"
+          />
+          <label class="custom-control-label" for="select-all-dealer"
+            >Select All</label
+          >
+        </div>
+      </div>
+    </div>
+    <p-tree
+      #userTreeList
+      [value]="users"
+      selectionMode="checkbox"
+      [(selection)]="selectedUsers"
+      styleClass="w-100"
+    >
+      <ng-template let-node pTemplate="default">
+        <h6 class="m-0" class="dealership-wrap m-0">{{ node.label }}</h6>
+      </ng-template>
+      <ng-template let-node pTemplate="dealership-user">
+        {{ node.label }}
+      </ng-template>
+    </p-tree>
+    <!--
+      <div>Selected Nodes: <span *ngFor="let file of selectedUsers">{{file.label}} </span></div>
+    -->
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-md btn-dark" (click)="userAssignModalRef.hide()">
+      Cancel
+    </button>
+    <button class="btn btn-md btn-green" (click)="onSaveUsers()">Save</button>
+  </div>
+</ng-template>

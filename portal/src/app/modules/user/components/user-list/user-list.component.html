@@ -1,0 +1,109 @@
+<p-table
+  [value]="users"
+  exportFilename="Users"
+  [paginator]="true"
+  [rows]="20"
+  [rowHover]="true"
+  selectionMode="single"
+  tableStyleClass="table table table-striped table-bordered tableGrid"
+  [globalFilterFields]="tableFilters"
+  #lmsDt
+>
+  <ng-template pTemplate="caption">
+    <div class="filterbar">
+      <div class="form-inline">
+        <div class="form-group mb-2 d-none">
+          <button class="btn btn-dark" (click)="lmsDt?.exportCSV()">
+            <i class="fas fa-file-export pr-1"></i>
+            Export
+          </button>
+        </div>
+        <div class="form-group ml-auto mb-2">
+          <label class="mr-2">Search</label>
+          <input
+            class="form-control"
+            type="text"
+            (input)="lmsDt.filterGlobal($event.target.value, 'contains')"
+          />
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+        {{ col.header }}
+        <p-sortIcon [field]="col.field" *ngIf="col.field"></p-sortIcon>
+      </th>
+    </tr>
+    <tr
+      lms-column-filter
+      [cols]="cols"
+      [table]="lmsDt"
+      class="filter-cols"
+    ></tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user>
+    <tr>
+      <!--
+        <td class="text-center">
+          <div class="custom-control custom-checkbox custom-without-text custom-control-inline">
+              <input class="custom-control-input" [attr.id]="'customCheck'+resource?.id" type="checkbox">
+              <label class="custom-control-label" [attr.for]="'customCheck1'+resource?.id"></label>
+            </div>
+        </td>
+      -->
+      <td>
+        <a [routerLink]="'/user/edit/' + user?.id">
+          {{ user?.first_name + ' ' + user?.last_name }}
+        </a>
+      </td>
+      <td>{{ user?.email }}</td>
+      <td>{{ user?.dealership }}</td>
+      <td>{{ user?.role }}</td>
+      <td class="text-center">
+        <p-inputSwitch
+          (onChange)="onChangeStatus(user)"
+          [(ngModel)]="user['is_active']"
+        ></p-inputSwitch>
+      </td>
+      <td style="width:12%;">
+        <a
+          href="javascript:void(0);"
+          (click)="onOpenConfirmModal(user)"
+          pTooltip="Delete"
+          tooltipPosition="top"
+        >
+          <i class="fas fa-trash-alt"></i>
+        </a>
+        <a
+          class="ml-2"
+          href="javascript:void(0);"
+          [routerLink]="'/user/edit/' + user?.id"
+          pTooltip="Edit"
+          tooltipPosition="top"
+        >
+          <i class="fas fa-pencil-alt"></i>
+        </a>
+        <a
+          class="ml-2"
+          href="javascript:void(0);"
+          (click)="onGuestLogin(user)"
+          pTooltip="Login"
+          tooltipPosition="top"
+        >
+          <i class="fas fa-key"></i>
+        </a>
+        <a
+          class="ml-2"
+          href="javascript:void(0);"
+          (click)="onEmailSend(user)"
+          pTooltip="Send Credentials"
+          tooltipPosition="top"
+        >
+          <i class="fas fa-paper-plane"></i>
+        </a>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

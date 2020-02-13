@@ -1,0 +1,392 @@
+<div class="createCourse">
+  <div class="card">
+    <div class="card-body">
+      <form action="" [formGroup]="courseForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label>Course Name</label>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Code of Conduct"
+              formControlName="title"
+              lmsValidationBorder
+            />
+            <div class="invalid-feedback" ngxErrors="title">
+              <div when="touched" [ngxError]="['required']">
+                Course name is required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Course Status</label>
+            <select class="form-control" formControlName="isActive">
+              <option value="0">In-active</option>
+              <option value="1">Active</option>
+            </select>
+            <div class="invalid-feedback" ngxErrors="isActive">
+              <div when="touched" [ngxError]="['required']">
+                This field is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <section>
+          <h6 class="border-bottom mt-2 pb-2">
+            <i class="fas fa-info-circle"></i> Course Details
+          </h6>
+          <div class="row">
+            <div class="col-md-12 mb-3 d-none">
+              <label>Author</label>
+              <input class="form-control" type="text" />
+            </div>
+            <div class="col-md-6 mb-3 d-none">
+              <label>Course Duration</label>
+              <div class="input-group">
+                <input class="form-control" type="text" />
+                <div class="input-group-append">
+                  <span class="input-group-text bg-black text-white"
+                    ><i class="fas fa-clock"></i
+                  ></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3 d-none">
+              <label>Approved By</label>
+              <select class="form-control">
+                <option>No one</option>
+                <option>Admin</option>
+                <option>Instructor</option>
+                <option>Manager</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Electronic Signature Required</label>
+              <select class="form-control" formControlName="isEsignature">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Days Limit</label>
+              <input
+                class="form-control"
+                type="text"
+                placeholder=""
+                formControlName="dayLimit"
+              />
+            </div>
+            <div class="col-md-12 mb-3">
+              <label>Description</label>
+              <p-editor
+                formControlName="description"
+                [style]="{ height: '100px' }"
+              ></p-editor>
+            </div>
+            <div class="col-md-6 mb-3 d-none">
+              <label>Total Hours Accredited for Completion</label>
+              <input class="form-control" type="text" />
+            </div>
+            <div class="col-md-6 mb-3 d-none">
+              <label>Email Log Address</label>
+              <input class="form-control" type="text" />
+            </div>
+            <div class="col-md-6 mb-3 d-none">
+              <label>Send Reminder email to start training within</label>
+              <div class="input-group">
+                <input class="form-control" type="text" />
+                <div class="input-group-append">
+                  <span class="input-group-text bg-black text-white"
+                    ><i class="fas fa-clock"></i
+                  ></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3 d-none">
+              <div class="custom-control custom-checkbox">
+                <input
+                  class="custom-control-input"
+                  id="customCheck1"
+                  type="checkbox"
+                />
+                <label class="custom-control-label" for="customCheck1"
+                  >Allow Learners to unregister from this Course</label
+                >
+              </div>
+            </div>
+            <div class="col-md-6 mb-3 d-none">
+              <div class="custom-control custom-checkbox">
+                <input
+                  class="custom-control-input"
+                  id="customCheck2"
+                  type="checkbox"
+                />
+                <label class="custom-control-label" for="customCheck2"
+                  >Allow Learners to launch Course after completion</label
+                >
+              </div>
+            </div>
+            <div class="col-md-6 mb-3 d-none">
+              <div class="custom-control custom-checkbox">
+                <input
+                  class="custom-control-input"
+                  id="customCheck3"
+                  type="checkbox"
+                />
+                <label class="custom-control-label" for="customCheck3"
+                  >Allow Managers to mark Course complete for Learners</label
+                >
+              </div>
+            </div>
+            <div class="col-md-6 mb-3 d-none">
+              <div class="custom-control custom-checkbox">
+                <input
+                  class="custom-control-input"
+                  id="customCheck4"
+                  type="checkbox"
+                />
+                <label class="custom-control-label" for="customCheck4"
+                  >Send Course Completion notifications to Managers</label
+                >
+              </div>
+            </div>
+            <div class="col-md-6 mb-3 d-none">
+              <div class="custom-control custom-checkbox">
+                <input
+                  class="custom-control-input"
+                  id="customCheck5"
+                  type="checkbox"
+                />
+                <label class="custom-control-label" for="customCheck5"
+                  >Send Course Completion notifications to Instructor</label
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h6 class="border-bottom mt-2 pb-2">
+            <i class="fas fa-image"></i> Display Image
+          </h6>
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <div class="custom-file">
+                <input
+                  class="custom-file-input"
+                  id="customFile"
+                  type="file"
+                  #courseImginputFile
+                  (change)="onPreviewCourseImage(courseImginputFile.files)"
+                />
+                <label class="custom-file-label" for="customFile">{{
+                  courseForm?.get('course_image')?.value?.name || 'Choose file'
+                }}</label>
+              </div>
+              <small class="text-muted d-none"
+                >Image dimensions 450 (w) x 250 (h). Images larger than this,
+                will be reduced in size to match recommended dimensions. Please
+                note: Image must be under 100KB's.</small
+              >
+              <div
+                class="courseAvatar  mt-2"
+                *ngIf="courseImgURL || course?.image"
+              >
+                <div class="courseAvatarHolder">
+                  <ng-container *ngIf="!courseImgURL && course?.image">
+                    <img alt="avatar" [src]="course?.image" />
+                  </ng-container>
+                  <ng-container *ngIf="courseImgURL">
+                    <div class="img-previewer">
+                      <img [src]="courseImgURL" />
+                      <span
+                        class="fas fa-times remove"
+                        (click)="onRemoveCourseImg()"
+                      ></span>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="d-none">
+          <h6 class="border-bottom mt-2 pb-2">
+            <i class="far fa-clock"></i> Timelines
+          </h6>
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label>Days Limit</label>
+              <input
+                class="form-control"
+                type="text"
+                placeholder=""
+                formControlName="dayLimit"
+              />
+            </div>
+            <div class="col-md-12 mb-3 d-none">
+              <label class="d-block">Automatic Email Reminder</label>
+              <div class="custom-control custom-checkbox custom-control-inline">
+                <input
+                  class="custom-control-input"
+                  id="customCheck1"
+                  type="checkbox"
+                />
+                <label class="custom-control-label" for="customCheck1"
+                  >Allow auto-generated expiry email reminders to be sent to
+                  Learners</label
+                >
+              </div>
+              <div class="custom-control custom-checkbox custom-control-inline">
+                <input
+                  class="custom-control-input"
+                  id="customCheck1"
+                  type="checkbox"
+                />
+                <label class="custom-control-label" for="customCheck1"
+                  >Add iCalendar to registration emails</label
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h6 class="border-bottom mt-2 pb-2">
+            <i class="far fa-calendar"></i> Certificate Expiry
+          </h6>
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <div class="custom-control custom-radio">
+                <input
+                  class="custom-control-input"
+                  id="customCheck45"
+                  [value]="0"
+                  formControlName="canExpire"
+                  type="radio"
+                />
+                <label class="custom-control-label" for="customCheck45"
+                  >Never Expires</label
+                >
+              </div>
+              <div class="form-row align-items-center">
+                <div class="col-auto">
+                  <div
+                    class="custom-control custom-radio custom-control-inline"
+                  >
+                    <input
+                      class="custom-control-input"
+                      id="customCheck46"
+                      [value]="1"
+                      type="radio"
+                      formControlName="canExpire"
+                    />
+                    <label class="custom-control-label" for="customCheck46"
+                      >Valid Until</label
+                    >
+                  </div>
+                </div>
+                <ng-container *ngIf="courseForm?.get('canExpire')?.value == 1">
+                  <div class="col-auto">
+                    <select
+                      name=""
+                      id=""
+                      class="form-control"
+                      formControlName="expiryPeriodCount"
+                    >
+                      <option [value]="day" *ngFor="let day of days">{{
+                        day
+                      }}</option>
+                    </select>
+                  </div>
+                  <div class="col-auto">
+                    <select
+                      name=""
+                      id=""
+                      class="form-control"
+                      formControlName="expiryPeriodType"
+                    >
+                      <option
+                        [value]="item?.value"
+                        *ngFor="let item of calendar"
+                        >{{ item?.label }}</option
+                      >
+                    </select>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3 d-none">
+              <label class="d-block">Automatic Email Reminder</label>
+              <div class="custom-control custom-checkbox custom-control-inline">
+                <input
+                  class="custom-control-input"
+                  id="customCheck1"
+                  type="checkbox"
+                />
+                <label class="custom-control-label" for="customCheck1"
+                  >Allow auto-generated expiry email reminders to be sent to
+                  Learners</label
+                >
+              </div>
+              <div class="custom-control custom-checkbox custom-control-inline">
+                <input
+                  class="custom-control-input"
+                  id="customCheck1"
+                  type="checkbox"
+                />
+                <label class="custom-control-label" for="customCheck1"
+                  >Add iCalendar to registration emails</label
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="d-none">
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <hr />
+              <div class="custom-control custom-checkbox custom-control-inline">
+                <input
+                  class="custom-control-input"
+                  id="customCheck1"
+                  type="checkbox"
+                />
+                <label class="custom-control-label" for="customCheck1"
+                  >Publish to Catalog</label
+                >
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <hr />
+              <label class="d-block"
+                >Choose Admin to receive the Completion Notification for this
+                Course</label
+              >
+              <div class="custom-control custom-checkbox custom-control-inline">
+                <input
+                  class="custom-control-input"
+                  id="customCheck5"
+                  type="checkbox"
+                />
+                <label class="custom-control-label" for="customCheck5"
+                  >Admin</label
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="text-center mt-4">
+          <button
+            class="btn btn-green mx-1"
+            type="button"
+            [disabled]="courseForm?.invalid || courseForm?.invalid"
+            (click)="onSave()"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

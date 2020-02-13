@@ -1,0 +1,154 @@
+<p-table
+  [value]="dealers"
+  exportFilename="Dealers"
+  [paginator]="true"
+  [rows]="20"
+  [rowHover]="true"
+  selectionMode="single"
+  tableStyleClass="table table table-striped table-bordered tableGrid"
+  [globalFilterFields]="tableFilters"
+  #lmsDt
+>
+  <ng-template pTemplate="caption">
+    <div class="filterbar">
+      <div class="form-inline">
+        <div class="form-group mb-2 d-none">
+          <p-dropdown
+            [options]="[
+              { label: 'All Dealers', value: null },
+              { label: 'Active', value: 1 },
+              { label: 'In-active', value: 0 }
+            ]"
+            [style]="{ width: '100%' }"
+            (onChange)="
+              lmsDt.filter(
+                $event.value && $event.value.toString(),
+                'is_active',
+                'equals'
+              )
+            "
+            styleClass="dt-filter"
+          >
+          </p-dropdown>
+          <select class="form-control d-none">
+            <option value="Filter Courses">Filter Materials</option>
+            <option selected="selected" [value]="1">Active</option>
+            <option selected="selected" [value]="0">In-active</option>
+          </select>
+        </div>
+        <div class="form-group mb-2 d-none">
+          <button class="btn btn-dark" (click)="lmsDt.exportCSV()">
+            <i class="fas fa-file-export pr-1"></i>
+            Export
+          </button>
+        </div>
+        <div class="form-group ml-auto mb-2">
+          <label class="mr-2">Search</label>
+          <input
+            class="form-control"
+            type="text"
+            (input)="lmsDt.filterGlobal($event.target.value, 'contains')"
+          />
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <ng-container *ngFor="let col of cols" [ngSwitch]="true">
+        <th
+          [pSortableColumn]="col.field"
+          *ngSwitchCase="col.header !== 'Action'"
+        >
+          {{ col.header }}
+          <p-sortIcon [field]="col.field" *ngIf="col.field"></p-sortIcon>
+        </th>
+        <ng-container>
+          <th *ngSwitchCase="col.header === 'Action'">{{ col.header }}</th>
+        </ng-container>
+      </ng-container>
+    </tr>
+    <!--
+      <tr
+        lms-column-filter
+        [cols]="cols"
+        [table]="lmsDt"
+        class="filter-cols"
+      ></tr>
+    -->
+  </ng-template>
+  <ng-template pTemplate="body" let-dealer>
+    <tr>
+      <!--
+        <td class="text-center">
+          <div class="custom-control custom-checkbox custom-without-text custom-control-inline">
+              <input class="custom-control-input" [attr.id]="'customCheck'+resource?.id" type="checkbox">
+              <label class="custom-control-label" [attr.for]="'customCheck1'+resource?.id"></label>
+            </div>
+        </td>
+      -->
+      <td>{{ dealer?.id }}</td>
+      <td>
+        <a
+          *lmsAccessPermission="'Admin'"
+          [routerLink]="'/dealer/edit/' + dealer?.id"
+          >{{ dealer?.name }}</a
+        >
+        <a *lmsAccessPermission="'Manager'" href="javascript:void(0)">{{
+          dealer?.name
+        }}</a>
+      </td>
+      <td>{{ dealer?.dealergroup }}</td>
+      <td>{{ status[(dealer?.is_active)] }}</td>
+      <td>{{ dealer?.created_at }}</td>
+      <td>
+        <a
+          class="d-none"
+          href="javascript:void(0);"
+          (click)="onOpenConfirmModal(dealer)"
+          pTooltip="Delete"
+          tooltipPosition="top"
+        >
+          <i class="fas fa-trash-alt"></i>
+        </a>
+        <!--
+          <a class="ml-2" href="javascript:void(0);" data-toggle="modal" data-target="#assignMaterial" title="Content">
+            <i class="fas fa-book"></i>
+          </a>
+        -->
+        <a
+          class="ml-2"
+          href="javascript:void(0);"
+          (click)="onOpenModal('learner', dealer)"
+          pTooltip="Associate Users"
+          tooltipPosition="top"
+        >
+          <i class="fas fa-users"></i>
+        </a>
+        <a
+          *lmsAccessPermission="'Admin'"
+          class="ml-2"
+          href="javascript:void(0);"
+          (click)="onOpenModal('manager', dealer)"
+          pTooltip="Associate Managers"
+          tooltipPosition="top"
+        >
+          <i class="fas fa-user-tie"></i>
+        </a>
+        <a
+          *lmsAccessPermission="'Admin'"
+          class="ml-2"
+          href="javascript:void(0);"
+          (click)="onShownCourses(dealer)"
+          pTooltip="Assigned Courses"
+          tooltipPosition="top"
+        >
+          <i class="fas fa-book"></i>
+        </a>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<!-- <lms-dealership-popup></lms-dealership-popup> -->
+<lms-associate-learner></lms-associate-learner>
+<lms-associate-manager></lms-associate-manager>

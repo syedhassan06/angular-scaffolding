@@ -1,0 +1,98 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>Site Settings</h2>
+        <!--
+          <div><a class="btn btn-dark mr-1" href="/admin.html"><i class="fas fa-arrow-alt-circle-left iconLeft"></i>Back</a></div>
+        -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb customBreadcrumb">
+          <li class="breadcrumb-item active"><a>Site Settings</a></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <form action="" [formGroup]="settingForm">
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label>App Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder=""
+                  formControlName="app_name"
+                  lmsValidationBorder
+                />
+                <div class="invalid-feedback" ngxErrors="app_name">
+                  <div when="touched" [ngxError]="['required']">
+                    App Name is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>Reply Email</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder=""
+                  formControlName="email_from_address"
+                  lmsValidationBorder
+                />
+                <div class="invalid-feedback" ngxErrors="email_from_address">
+                  <div when="touched" [ngxError]="['required', 'email']">
+                    Valid email address is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>Reply Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder=""
+                  formControlName="email_from_name"
+                  lmsValidationBorder
+                />
+                <div class="invalid-feedback" ngxErrors="email_from_name">
+                  <div when="touched" [ngxError]="['required']">
+                    Name is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <label>Terms of use</label>
+                <p-editor
+                  formControlName="terms_of_use"
+                  [style]="{ height: '100px' }"
+                ></p-editor>
+              </div>
+            </div>
+
+            <div class="text-center mt-4">
+              <button
+                class="btn btn-green mx-1"
+                type="button"
+                [disabled]="settingForm?.invalid || settingForm?.invalid"
+                (click)="onSave()"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

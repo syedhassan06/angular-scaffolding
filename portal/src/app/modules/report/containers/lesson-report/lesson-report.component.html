@@ -1,0 +1,129 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>Lessons Progress Report</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb customBreadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/report">Reports</a></li>
+          <li class="breadcrumb-item active"><a>Lessons Progress Report</a></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div>
+            <!--
+              -
+                          [frozenColumns]="frozenCols"
+              frozenWidth="150px"
+            -->
+            <p-table
+              [value]="courses"
+              exportFilename="Lessons Progress Report"
+              [columns]="cols"
+              [paginator]="true"
+              [rows]="20"
+              [rowHover]="true"
+              selectionMode="single"
+              reorderableColumns="true"
+              [scrollHeight]="'1000px'"
+              sortMode="multiple"
+              [globalFilterFields]="tableFilters"
+              #lmsDt
+            >
+              <ng-template pTemplate="caption">
+                <div class="filterbar">
+                  <div class="form-inline">
+                    <div class="form-group mb-2">
+                      <button class="btn btn-dark" (click)="lmsDt.exportCSV()">
+                        <i class="fas fa-file-export pr-1"></i>
+                        Export to Excel
+                      </button>
+                    </div>
+                    <div class="form-group mb-2 pl-2">
+                      <lms-export-pdf-report
+                        [table]="lmsDt"
+                        [cols]="cols"
+                        title="Lessons Progress Report"
+                      ></lms-export-pdf-report>
+                    </div>
+                    <div class="form-group ml-auto mb-2">
+                      <label class="mr-2">Search</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        (input)="
+                          lmsDt.filterGlobal($event.target.value, 'contains')
+                        "
+                      />
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                  <col *ngFor="let col of columns" />
+                </colgroup>
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{ col.header }}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                  </th>
+                </tr>
+                <tr
+                  lms-column-filter
+                  [cols]="cols"
+                  [table]="lmsDt"
+                  class="filter-cols"
+                ></tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-course>
+                <tr>
+                  <td>{{ course?.title }}</td>
+                  <!-- <td>{{ course?.email }}</td> -->
+                  <td>{{ course?.first_name + ' ' + course?.last_name }}</td>
+                  <!-- <td>{{ course?.last_name }}</td> -->
+                  <td>{{ course?.dealership || '-' }}</td>
+                  <!--
+                    <td>{{ course?.starting_date }}</td>
+                    <td>{{ course?.registration_date }}</td>
+                    <td>{{ course?.expiration_date }}</td>
+                  -->
+                  <td>{{ course?.status }}</td>
+                  <td>
+                    <div class="courseProgressHolder mt-3">
+                      <lms-progressbar
+                        [value]="course?.progress"
+                      ></lms-progressbar>
+                    </div>
+                  </td>
+                  <td
+                    style="cursor:pointer"
+                    pTooltip="Show Lessons"
+                    tooltipPosition="left"
+                    (click)="course?.no_of_lessons && onShowUserCourses(course)"
+                  >
+                    <span>{{ course?.no_of_lessons | number: '2.0-0' }}</span>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

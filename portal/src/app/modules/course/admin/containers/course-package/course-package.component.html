@@ -1,0 +1,32 @@
+<!-- <lms-course-placeholder>  </lms-course-placeholder> -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>{{ course?.title }}</h2>
+        <div *lmsAccessPermission="['Admin']">
+          <a class="btn btn-dark mr-1" [routerLink]="previousUrl"
+            ><i class="fas fa-arrow-alt-circle-left iconLeft"></i>Back to
+            Course</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12" [ngClass]="{ 'p-0': pageType == 'dashboard' }">
+      <div [ngClass]="{ card: pageType != 'dashboard' }">
+        <div [ngClass]="{ 'card-body': pageType != 'dashboard' }">
+          <div>
+            <!-- <h4 class="border-bottom pb-3 mb-4" *ngIf="childRouteData?.title">{{childRouteData?.title}}</h4> -->
+            <router-outlet (activate)="onActivate($event)"></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

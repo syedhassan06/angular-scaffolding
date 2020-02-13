@@ -1,0 +1,97 @@
+<form action="" [formGroup]="emailForm">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Email Template</h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="bsModalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ngx-spinner
+      bdOpacity="0.9"
+      bdColor="rgb(228, 228, 228,0.9)"
+      size="medium"
+      color="#305850"
+      type="ball-clip-rotate-multiple"
+      fullScreen="false"
+    >
+    </ngx-spinner>
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <label>Title</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder=""
+          formControlName="email_title"
+          lmsValidationBorder
+        />
+        <div class="invalid-feedback" ngxErrors="email_title">
+          <div when="touched" [ngxError]="['required']">
+            Email title is required
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <label>Description</label>
+        <p-editor
+          formControlName="email_description"
+          [style]="{ height: '100px' }"
+        ></p-editor>
+        <div class="invalid-feedback" ngxErrors="email_description">
+          <div when="touched" [ngxError]="['required']">
+            Email description is required
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <label>Date</label>
+        <p-calendar
+          [showIcon]="true"
+          dateFormat="mm/dd/yy"
+          formControlName="email_date"
+          styleClass="d-block"
+          readonlyInput="false"
+          inputStyleClass="armd-datepicker-icon"
+        ></p-calendar>
+        <div class="invalid-feedback" ngxErrors="email_date">
+          <div when="touched" [ngxError]="['required']">
+            Email Date is required
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 mb-3">
+        <div class="custom-control custom-checkbox">
+          <input
+            class="custom-control-input"
+            type="checkbox"
+            id="send_attachment"
+            formControlName="send_attachment"
+          />
+          <label class="custom-control-label" for="send_attachment"
+            >Send Attachment</label
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-dark" type="button" (click)="bsModalRef.hide()">
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-green"
+      [disabled]="emailForm?.invalid || emailForm?.invalid"
+      (click)="onSave()"
+    >
+      Save
+    </button>
+  </div>
+</form>

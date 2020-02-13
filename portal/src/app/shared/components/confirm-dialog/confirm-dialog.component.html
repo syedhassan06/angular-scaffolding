@@ -1,0 +1,19 @@
+<ng-template #confirmationTemplate>
+  <div class="modal-header">
+    <span>{{ settings.title }}</span>
+    <button class="close" aria-label="Close" (click)="onCancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{ settings.content }}
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-md btn-dark" (click)="onCancel()">
+      {{ settings?.cancelButtonText }}
+    </button>
+    <button class="btn btn-md btn-danger" (click)="onConfirm()">
+      {{ settings?.confirmButtonText }}
+    </button>
+  </div>
+</ng-template>

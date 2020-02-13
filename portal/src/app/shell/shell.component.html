@@ -1,0 +1,18 @@
+<lms-header></lms-header>
+
+<div class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+      <lms-sidebar></lms-sidebar>
+    </div>
+    <div class="col-12 col-md-9 col-xl-10 py-md-3 bd-content">
+      <lms-loading-placeholder></lms-loading-placeholder>
+      <!--- [ngClass]="{'d-none':displayPlaceholder}"  --->
+      <div [hidden]="(contentLoader$ | async)?.show">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+
+<lms-footer></lms-footer>

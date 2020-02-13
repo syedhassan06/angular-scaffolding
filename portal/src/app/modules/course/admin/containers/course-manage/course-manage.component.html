@@ -1,0 +1,173 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>Manage Courses</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb customBreadcrumb">
+          <li class="breadcrumb-item active">
+            <a routerLink="/course/manage-list">All Courses</a>
+          </li>
+          <li class="breadcrumb-item" *lmsAccessPermission="['Admin']">
+            <a routerLink="/course/create">Create Course</a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div>
+            <p-table
+              [value]="courses"
+              exportFilename="Courses"
+              [paginator]="true"
+              [rows]="20"
+              [rowHover]="true"
+              selectionMode="single"
+              tableStyleClass="table table table-striped table-bordered tableGrid"
+              [globalFilterFields]="tableFilters"
+              #lmsDt
+            >
+              <ng-template pTemplate="caption">
+                <div class="filterbar">
+                  <div class="form-inline">
+                    <div class="form-group mb-2 d-none">
+                      <p-dropdown
+                        [options]="[
+                          { label: 'Course Status', value: null },
+                          { label: 'Active', value: 'Active' },
+                          { label: 'In-active', value: 'In-active' }
+                        ]"
+                        [style]="{ width: '100%' }"
+                        (onChange)="
+                          lmsDt.filter(
+                            $event.value && $event.value.toString(),
+                            'isActive',
+                            'equals'
+                          )
+                        "
+                        styleClass="dt-filter"
+                      >
+                      </p-dropdown>
+                      <select class="form-control d-none">
+                        <option value="Filter Courses">Filter Materials</option>
+                        <option selected="selected" value="Active"
+                          >Active</option
+                        >
+                        <option selected="selected" value="Active"
+                          >In-active</option
+                        >
+                      </select>
+                    </div>
+                    <div class="form-group mb-2 d-none">
+                      <button class="btn btn-dark" (click)="lmsDt.exportCSV()">
+                        <i class="fas fa-file-export pr-1"></i>
+                        Export
+                      </button>
+                    </div>
+                    <div class="form-group ml-auto mb-2">
+                      <label class="mr-2">Search</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        (input)="
+                          lmsDt.filterGlobal($event.target.value, 'contains')
+                        "
+                      />
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+                    {{ col.header }}
+                    <p-sortIcon
+                      [field]="col.field"
+                      *ngIf="col.field"
+                    ></p-sortIcon>
+                  </th>
+                </tr>
+                <tr
+                  lms-column-filter
+                  [cols]="cols"
+                  [table]="lmsDt"
+                  class="filter-cols"
+                ></tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-course>
+                <tr>
+                  <!--
+                    <td class="text-center">
+                      <div class="custom-control custom-checkbox custom-without-text custom-control-inline">
+                          <input class="custom-control-input" [attr.id]="'customCheck'+resource?.id" type="checkbox">
+                          <label class="custom-control-label" [attr.for]="'customCheck1'+resource?.id"></label>
+                        </div>
+                    </td>
+                  -->
+                  <td>
+                    <a [routerLink]="'/course/' + course?.id + '/dashboard'">{{
+                      course?.title
+                    }}</a>
+                  </td>
+                  <td>{{ course?.isActive }}</td>
+                  <td>{{ course?.createdDate }}</td>
+                  <td class="text-center">
+                    <a
+                      href="javascript:void(0);"
+                      (click)="onOpenConfirmModal(course)"
+                      pTooltip="Delete"
+                      tooltipPosition="top"
+                    >
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <a
+                      class="ml-2"
+                      href="javascript:void(0);"
+                      *lmsAccessPermission="['Admin']"
+                      [routerLink]="'/course/edit/' + course?.id"
+                      pTooltip="Edit Course"
+                      tooltipPosition="top"
+                    >
+                      <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <a
+                      class="ml-2"
+                      href="javascript:void(0);"
+                      *lmsAccessPermission="['Manager']"
+                      [routerLink]="'/course/' + course?.id + '/roster'"
+                      pTooltip="Course Roster"
+                      tooltipPosition="top"
+                    >
+                      <i class="fas fa-book"></i>
+                    </a>
+                    <a
+                      class="ml-2"
+                      href="javascript:void(0);"
+                      *lmsAccessPermission="['Admin']"
+                      [routerLink]="'/course/' + course?.id + '/dashboard'"
+                      pTooltip="Manage Course"
+                      tooltipPosition="top"
+                    >
+                      <i class="fas fa-cogs"></i>
+                    </a>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<small
+  class="texxt-muted ml-2 badge"
+  [ngClass]="{
+    'badge-warning': (value | lowercase) == 'registered',
+    'badge-success': (value | lowercase) == 'completed',
+    'badge-primary': (value | lowercase) == 'in-progress',
+    'badge-danger': (value | lowercase) == 'expired'
+  }"
+>
+  {{ value | titlecase }}
+</small>

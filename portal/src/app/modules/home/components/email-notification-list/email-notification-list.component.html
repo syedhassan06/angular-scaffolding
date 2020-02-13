@@ -1,0 +1,116 @@
+<p-table
+  [value]="emailSettings"
+  [paginator]="true"
+  [rows]="20"
+  [rowHover]="true"
+  selectionMode="single"
+  tableStyleClass="table table table-striped table-bordered tableGrid"
+  [globalFilterFields]="tableFilters"
+  #dealerGroupTable
+>
+  <ng-template pTemplate="caption">
+    <div class="filterbar">
+      <div class="form-inline">
+        <div class="form-group mb-2">
+          <!--
+            <p-dropdown
+              [options]="[
+                { label: 'All Dealer Groups', value: null },
+                { label: 'Active', value: 1 },
+                { label: 'In-active', value: 0 }
+              ]"
+              [style]="{ width: '100%' }"
+              (onChange)="
+                dealerGroupTable.filter(
+                  $event.value && $event.value.toString(),
+                  'is_active',
+                  'equals'
+                )
+              "
+              styleClass="dt-filter"
+            >
+            </p-dropdown>
+          -->
+          <select class="form-control d-none">
+            <option value="Filter Courses">Filter Materials</option>
+            <option selected="selected" [value]="1">Active</option>
+            <option selected="selected" [value]="0">In-active</option>
+          </select>
+        </div>
+        <!--
+          <div class="form-group ml-auto">
+            <label class="mr-2">Search</label>
+            <input
+              class="form-control"
+              type="text"
+              (input)="dealerGroupTable.filterGlobal($event.target.value, 'contains')"
+            />
+          </div>
+        -->
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <!-- <th>-</th> -->
+      <th>Email</th>
+      <th>Email To User</th>
+      <th>Email To Manager</th>
+      <th>Email To Admin</th>
+      <th>Admin Email Addresses</th>
+      <!-- <th>Action</th> -->
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-emailSetting let-i="rowIndex">
+    <tr>
+      <!--
+        <td class="text-center">
+          <div class="custom-control custom-checkbox custom-without-text custom-control-inline">
+              <input class="custom-control-input" [attr.id]="'customCheck'+resource?.id" type="checkbox">
+              <label class="custom-control-label" [attr.for]="'customCheck1'+resource?.id"></label>
+            </div>
+        </td>
+      -->
+      <td>
+        <a [routerLink]="'/email-setting/edit/' + emailSetting?.id">{{
+          emailSetting?.action
+        }}</a>
+      </td>
+      <td class="text-center">
+        <p-inputSwitch
+          (onChange)="handleChange($event, emailSetting, 'send_to_user')"
+          [(ngModel)]="sender['send_to_user'][i]"
+        ></p-inputSwitch>
+      </td>
+      <td class="text-center">
+        <p-inputSwitch
+          (onChange)="handleChange($event, emailSetting, 'send_to_manager')"
+          [(ngModel)]="sender['send_to_manager'][i]"
+        ></p-inputSwitch>
+      </td>
+      <td class="text-center">
+        <p-inputSwitch
+          (onChange)="handleChange($event, emailSetting, 'send_to_log')"
+          [(ngModel)]="sender['send_to_log'][i]"
+        ></p-inputSwitch>
+      </td>
+      <td>
+        <ng-container *ngIf="emailSetting?.log_email_address">
+          <p
+            *ngFor="let email of emailSetting?.log_email_address?.split(';')"
+            class="m-0 mb-1"
+          >
+            {{ email }}
+          </p>
+        </ng-container>
+      </td>
+      <!--
+        <td>
+          <a href="javascript:void(0);" (click)="onOpenConfirmModal(emailSetting)" pTooltip="Delete" tooltipPosition="top">
+            <i class="fas fa-trash-alt"></i>
+          </a>
+        </td>
+      -->
+    </tr>
+  </ng-template>
+</p-table>

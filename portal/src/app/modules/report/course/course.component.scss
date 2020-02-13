@@ -1,0 +1,31 @@
+::ng-deep.ui-table .ui-table-tbody > tr > td,
+::ng-deep.ui-table-thead > tr > th {
+  min-width: 130px !important;
+  max-width: 130px !important;
+}
+.ui-table-tbody > tr > td,
+.ui-table-thead > tr > th {
+  min-width: 130px !important;
+  max-width: 130px !important;
+}
+::ng-deep.ui-table .ui-table-tbody > tr > td:nth-child(1),
+::ng-deep.ui-table-thead > tr > th:nth-child(1) {
+  min-width: 180px !important;
+  max-width: 180px !important;
+}
+.ui-table-tbody > tr > td:nth-child(1),
+.ui-table-thead > tr > th:nth-child(1) {
+  min-width: 180px !important;
+  max-width: 180px !important;
+}
+:host ::ng-deep .ui-table .ui-table-thead > tr > th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+}
+
+@media screen and (max-width: 64em) {
+  :host ::ng-deep .ui-table .ui-table-thead > tr > th {
+    top: 0px;
+  }
+}

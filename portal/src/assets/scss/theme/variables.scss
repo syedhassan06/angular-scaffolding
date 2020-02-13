@@ -1,0 +1,20 @@
+// GLOBAL
+
+// COLORS
+$armd_green: #305850;
+$nightRider: #333333;
+$darkGray: #2d2d2d;
+$blueCharcoal: #212529;
+$whisper: #eeeeee;
+
+$default: $armd_green;
+
+// TYPOGRAPHY
+/// BOOTSTRAP CUSTOMIZED VARIABLES
+$theme-colors: () !default;
+$theme-colors: map-merge(
+  (
+    'default': $default
+  ),
+  $theme-colors
+);

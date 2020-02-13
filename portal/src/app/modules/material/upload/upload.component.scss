@@ -1,0 +1,22 @@
+.ui-fileupload-choose.ui-button {
+  width: 100% !important;
+  background-color: #343a40;
+  border-color: #343a40;
+  font-size: 1rem;
+  font-weight: 400;
+  &:hover {
+    color: #ffffff;
+    background-color: #23272b !important;
+    border-color: #1d2124 !important;
+  }
+}
+.ui-fileupload-content {
+  display: none;
+}
+.ui-fileupload {
+  .ui-fileupload-buttonbar {
+    background-color: transparent !important;
+    padding: 0px !important;
+    border: none !important;
+  }
+}

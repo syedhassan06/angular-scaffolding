@@ -1,0 +1,106 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>My Courses</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="filterbar  d-none">
+            <form class="form-inline">
+              <div class="form-group">
+                <label class="mr-2">Sort By</label>
+                <select class="form-control">
+                  <option>A to Z</option>
+                  <option>Z to A</option>
+                </select>
+              </div>
+              <div class="form-group ml-auto">
+                <label class="mr-2">Search</label>
+                <input class="form-control" type="text" />
+              </div>
+            </form>
+          </div>
+          <div class="courseListingHolder mt-3">
+            <div class="courseRow" *ngFor="let course of courses">
+              <div class="courseContentSec">
+                <div class="courseThumb">
+                  <img
+                    *ngIf="!course?.image"
+                    src="assets/img/course.jpg"
+                    alt="courseThumb"
+                  />
+                  <img
+                    *ngIf="course?.image"
+                    [src]="course?.image"
+                    alt="courseThumb"
+                  />
+                </div>
+                <div class="courseTitleSec">
+                  <a
+                    *ngIf="course?.status != 'expired'"
+                    class="btn btn-dark text-white float-right"
+                    [routerLink]="'/course/learner/detail/' + course?.id"
+                    >Start</a
+                  >
+                  <h5>{{ course?.title }}</h5>
+                  <p class="mb-1">
+                    <b>Registration Date:&nbsp;</b>{{ course?.date }}
+                  </p>
+                  <p class="m-0">
+                    <b>Status:&nbsp;</b
+                    ><lms-status [value]="course?.status"></lms-status>
+                  </p>
+                  <div class="courseProgressHolder mt-3">
+                    <lms-progressbar
+                      [value]="course?.progress"
+                    ></lms-progressbar>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="paginationHolder mt-4 d-none">
+            <ul class="pagination justify-content-center">
+              <li class="page-item disabled">
+                <a
+                  class="page-link"
+                  href="javascript:void(0)"
+                  tabindex="-1"
+                  aria-disabled="true"
+                  >Previous</a
+                >
+              </li>
+              <li class="page-item active">
+                <a
+                  class="page-link"
+                  href="javascript:void(0)"
+                  tabindex="-1"
+                  aria-disabled="true"
+                  >1</a
+                >
+              </li>
+              <li class="page-item">
+                <a
+                  class="page-link"
+                  href="javascript:void(0)"
+                  tabindex="-1"
+                  aria-disabled="true"
+                  >Next</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

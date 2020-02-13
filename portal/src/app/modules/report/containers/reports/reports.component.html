@@ -1,0 +1,99 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4><i class="fas fa-chart-bar"></i> STATS & REPORTS</h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4" *lmsAccessPermission="'Admin'">
+    <div class="card">
+      <div class="card-body report-card" routerLink="/report/all-course">
+        <h5 class="text-center"><a>ALL COURSES</a></h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4" *lmsAccessPermission="'Admin'">
+    <div class="card">
+      <div
+        class="card-body report-card"
+        routerLink="/report/course-registration"
+      >
+        <h5 class="text-center"><a>COURSE REGISTRATION</a></h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body report-card" routerLink="/report/course-progress">
+        <h5 class="text-center"><a>COURSE PROGRESS</a></h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body report-card" routerLink="/report/course-completion">
+        <h5 class="text-center"><a>COURSE COMPLETION</a></h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div
+        class="card-body report-card"
+        routerLink="/report/course-certificate"
+      >
+        <h5 class="text-center"><a>COURSE CERTIFICATE</a></h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body report-card" routerLink="/report/user-registration">
+        <h5 class="text-center"><a>USER REGISTRATION</a></h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body report-card" routerLink="/report/user-login">
+        <h5 class="text-center"><a>USER LOGIN</a></h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body report-card" routerLink="/report/dealership">
+        <h5 class="text-center"><a>ALL DEALERSHIPS</a></h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body report-card" routerLink="/report/lesson">
+        <h5 class="text-center"><a>LESSONS PROGRESS</a></h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body report-card" routerLink="/report/activity">
+        <h5 class="text-center"><a>ACTIVITY LOG</a></h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4" *lmsAccessPermission="'Admin'">
+    <div class="card">
+      <div class="card-body report-card" routerLink="/report/report-card">
+        <h5 class="text-center"><a>REPORT CARD</a></h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4" *lmsAccessPermission="'Admin'">
+    <div class="card">
+      <div class="card-body report-card" routerLink="/report/schedule">
+        <h5 class="text-center"><a>SCHEDULED REPORT</a></h5>
+      </div>
+    </div>
+  </div>
+</div>

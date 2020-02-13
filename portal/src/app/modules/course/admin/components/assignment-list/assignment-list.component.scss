@@ -1,0 +1,17 @@
+.assignment-count {
+  float: right;
+  height: 20px;
+  width: 25px;
+  line-height: 20px;
+  border-radius: 20px;
+  background-color: #267b57;
+  color: #fff;
+  text-align: center;
+  span {
+    font-size: 10px;
+    position: relative;
+    top: -1px;
+    left: -1px;
+    font-weight: 700;
+  }
+}

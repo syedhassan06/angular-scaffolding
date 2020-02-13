@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>Create Course</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb customBreadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/course/manage-list">All Courses</a>
+          </li>
+          <li class="breadcrumb-item   active">
+            <a routerLink="/course/create">Create Course</a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-12">
+      <lms-course-item-form
+        (save$)="saved($event)"
+        [course]="course"
+      ></lms-course-item-form>
+    </div>
+  </div>
+</div>

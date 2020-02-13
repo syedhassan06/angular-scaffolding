@@ -1,0 +1,42 @@
+<th *ngFor="let col of cols; let colIndex = index" [ngSwitch]="col.filterType">
+  <input
+    *ngSwitchCase="'input'"
+    pInputText
+    [placeholder]="col.header"
+    type="text"
+    class="form-control"
+    (input)="table.filter($event.target.value, col.field, col.filterMatchMode)"
+  />
+  <p-calendar
+    *ngSwitchCase="'date'"
+    inputStyleClass="form-control"
+    [(ngModel)]="dateCols[colIndex]"
+    appendTo="body"
+    [readonlyInput]="false"
+    [monthNavigator]="true"
+    [yearNavigator]="true"
+    yearRange="2000:2030"
+    baseZIndex="23"
+    selectionMode="range"
+    dateFormat="mm/dd/yy"
+    [placeholder]="col.header"
+    showButtonBar="true"
+    styleClass="dt-filter-date"
+    panelStyleClass="dtfilter-date-panel"
+    (onSelect)="
+      table.filter($event, col.field, 'dateRangeFilter' + colIndex, 'equals')
+    "
+    (onClearClick)="table.filter($event.target.value, col.field, 'contains')"
+  >
+  </p-calendar>
+  <p-dropdown
+    *ngSwitchCase="'select'"
+    [options]="col?.options"
+    appendTo="body"
+    [placeholder]="col?.header"
+    showClear="true"
+    styleClass="form-control"
+    [style]="{ width: '100%' }"
+    (onChange)="table.filter($event.value, col.field, 'contains')"
+  ></p-dropdown>
+</th>

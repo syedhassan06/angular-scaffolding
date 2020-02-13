@@ -1,0 +1,812 @@
+// Note from Ben:
+// I just pasted your code below, but it should be reorganized into logical imported files
+body {
+  background: #eee;
+}
+
+// #footer {
+//   margin-top: 5em;
+//   min-height: 10em;
+//   background: #dddddd;
+// }
+
+.bg-dark {
+  background-color: $armd_green !important;
+}
+.text-armd {
+  color: $armd_green;
+}
+.btn-green {
+  color: #fff;
+  background-color: $armd_green;
+  border-color: $armd_green;
+  &:hover {
+    color: #fff;
+  }
+  &:focus {
+    color: #fff;
+  }
+}
+
+.text-green {
+  color: $armd_green !important;
+}
+
+.bg-black {
+  background: $blueCharcoal !important;
+}
+
+a {
+  &:focus,
+  &:hover {
+    text-decoration: none;
+  }
+}
+.input-group {
+  .input-group-prepend {
+    .input-group-text {
+      background: $darkGray;
+    }
+  }
+}
+.iconLeft {
+  margin-right: 7px;
+}
+.iconright {
+  margin-left: 7px;
+}
+
+.custom-without-text {
+  &.custom-control-inline {
+    margin-right: 0;
+    padding-left: 1.9rem;
+  }
+}
+.min-6 {
+  min-width: 6em;
+}
+h1,
+h2 {
+  small {
+    &.text-muted {
+      font-size: 50%;
+      vertical-align: middle;
+    }
+  }
+}
+.collapseHead {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  &.collapsed {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}
+.headGreen {
+  padding: 3px 15px;
+  background: $armd_green;
+  color: #fff;
+  line-height: 24px;
+}
+.filterbar {
+  select {
+    &.form-control {
+      width: 12.5em;
+    }
+  }
+  .form-control {
+    min-width: 12.5em;
+  }
+}
+.custom-file {
+  &.customBtnFile {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    .custom-file-input {
+      position: absolute;
+      height: 100%;
+    }
+  }
+}
+
+.pagination {
+  a {
+    color: $armd_green;
+  }
+  .page-link:hover {
+    color: $armd_green;
+  }
+  .page-item {
+    &.active {
+      .page-link {
+        background: $armd_green;
+        border-color: $armd_green;
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.panel-title {
+  padding-bottom: 0.5rem;
+}
+
+header {
+  .navbar-brand {
+    img {
+      max-height: 38px;
+    }
+  }
+  &.navbar-dark {
+    .navbar-nav {
+      .nav-link {
+        color: #fff;
+      }
+    }
+  }
+}
+
+ul {
+  &.list {
+    list-style-type: none;
+    &.row {
+      margin-right: -15px;
+      margin-left: -15px;
+    }
+    padding-left: 0;
+    margin: 0;
+    li {
+      line-height: 2em;
+      a {
+        color: #212529;
+      }
+    }
+  }
+}
+
+.card {
+  margin: 0 0 1.2rem 0;
+}
+
+.pageHeader {
+  border-bottom: 1px solid $armd_green;
+  & > h1,
+  & > h2,
+  & > h3,
+  & > h4,
+  & > h5,
+  & > h6 {
+    margin: 0;
+  }
+}
+
+.table td,
+.table th {
+  padding: 0.5rem;
+}
+
+.bd-content {
+  font-size: 14px;
+  .form-table {
+    border-spacing: 0 5px;
+    width: 100%;
+    border-collapse: separate;
+    tr {
+      > td {
+        background: #e2e2e2;
+        padding: 0;
+        &:first-child {
+          background: #cecece;
+          padding: 0 15px;
+          width: 25%;
+        }
+        .form-control {
+          border-radius: 0;
+        }
+      }
+    }
+  }
+  .breadcrumb {
+    &.customBreadcrumb {
+      background: #fff;
+      .breadcrumb-item {
+        &.active {
+          a {
+            color: $armd_green;
+          }
+        }
+        a {
+          color: $nightRider;
+        }
+      }
+      .breadcrumb-item + .breadcrumb-item::before {
+        content: '|';
+      }
+    }
+  }
+  .adminCardHolder {
+    .card {
+      min-height: 18em;
+      .card-header {
+        i {
+          margin-right: 5px;
+          width: 16px;
+          &.float-right {
+            line-height: 21px;
+          }
+        }
+      }
+      .card-body {
+        .list {
+          li {
+            a {
+              &:hover {
+                color: $armd_green;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .courseCardHolder {
+    .card {
+      .card-header {
+        i {
+          width: 16px;
+          &.float-right {
+            line-height: 21px;
+          }
+        }
+      }
+      .card-body {
+        .list {
+          li {
+            a {
+              &:hover {
+                color: $armd_green;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .reportCardHolder {
+    .card {
+      .card-header {
+        i {
+          margin-right: 5px;
+          width: 12px;
+          &.float-right {
+            line-height: 21px;
+          }
+        }
+      }
+      .card-body {
+        .list {
+          li {
+            a {
+              &:hover {
+                color: $armd_green;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .profilePage {
+    display: flex;
+    .userAvatar {
+      width: 22em;
+      margin: 0 2em 0 0;
+      .userAvatarHolder {
+        background: $whisper;
+        width: 100%;
+        height: 18em;
+        margin: 0 0 1em 0;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        img {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+      .avatarBtnHolder {
+        text-align: center;
+      }
+    }
+    .userDetailSec {
+      width: 100%;
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        i {
+          width: 16px;
+          margin-right: 5px;
+        }
+        &.border-bottom {
+          padding-bottom: 8px;
+        }
+      }
+    }
+  }
+  .mediaGallery {
+    .mediaAddBtnHolder {
+      .custom-file {
+        &.customBtnFile {
+          width: 100%;
+        }
+      }
+    }
+    .mediaHolder {
+      .mediaContentHolder {
+        .mediaAvatarSec {
+          margin-bottom: 10px;
+          a {
+            height: 15em;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #dedede;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img {
+              max-width: 100%;
+            }
+          } // .mediaHoverSec{position: absolute;top:0;left:0;display: flex;justify-content: center;align-items: center;color:#000;background-color: rgba(0,0,0,0.5);width:100%;height: 100%;opacity: 0;transition:opacity .15s ease-in-out;
+          //     a{width:40px;height: 40px;margin:0 10px;background:#fff;border-radius:100%;display: flex;justify-content: center;align-items: center;color:$armd_green;transition:all .15s ease-in-out;
+          //         &:hover{
+          //             background: $armd_green;color:#fff;
+          //         }
+          //     }
+          // }
+          &:hover {
+            .mediaHoverSec {
+              opacity: 1;
+            }
+          }
+        }
+        &.mediaVideo {
+        }
+        &.mediaAudio {
+          .mediaAvatarSec {
+          }
+        }
+      }
+    }
+    .mediaFilter {
+      .form-control {
+        min-width: 13em;
+      }
+    }
+  }
+  .materialListSec {
+    &.courseDetailLessonList {
+      .materialListRow {
+        justify-content: space-between;
+        b {
+          cursor: pointer;
+          a {
+            color: #212529;
+            &:hover {
+              color: $armd_green;
+            }
+          }
+          &:hover {
+            color: $armd_green;
+          }
+        }
+      }
+    }
+    .materialListRow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      b {
+        margin: 0;
+        font-size: 15px;
+        white-space: nowrap;
+      }
+      .progress {
+        width: 100%;
+        margin: 0 15px;
+      }
+      .mediaAvatarSec {
+        height: 5em;
+        width: 10em;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #dedede;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -ms-flex-align: center;
+        align-items: center;
+        img {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+    }
+  }
+  .rosterSec {
+    .addRoster {
+      .btn {
+        min-width: 7em;
+      }
+    }
+  }
+  .refrenceLibrarySec {
+    .accordion {
+      .card {
+        margin-bottom: 0;
+        .card-header {
+          padding: 0;
+          h5 {
+            .btn {
+              width: 100%;
+              text-align: left;
+              color: #333;
+              &:focus,
+              &:hover {
+                text-decoration: none;
+              }
+              &.collapsed {
+                svg {
+                  transform: rotate(180deg);
+                }
+              }
+              svg {
+                margin-top: 3px;
+              }
+            }
+          }
+        }
+        .card-body {
+          padding: 0;
+          ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            li {
+              & + li {
+                border-top: 1px solid #dedede;
+                color: #333;
+              }
+              a {
+                width: 100%;
+                padding: 0.375rem 0.75rem;
+                display: block;
+                line-height: 1.5;
+                color: #333;
+                &.active {
+                  background: $armd_green;
+                  color: #fff;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .refrenceLibraryListSec {
+      margin-top: 2em;
+      border-bottom: 1px solid #dedede;
+      .refrenceLibraryListRow {
+        border-top: 1px solid #dedede;
+        padding: 1em 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .refrenceMaterialInfo {
+        h5 {
+          margin-bottom: 0;
+        }
+        p {
+          margin-bottom: 0;
+          margin-top: 0.5em;
+        }
+      }
+      .refrenceActionSec {
+        white-space: nowrap;
+      }
+    }
+  }
+  .courseListingHolder {
+    .courseRow {
+      margin: 10px 0 10px 0;
+      .courseContentSec {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        .btn {
+          min-width: 6em;
+        }
+        .courseThumb {
+          width: 12em;
+          height: 8em;
+          position: relative;
+          overflow: hidden;
+          border: 1px solid #dedede;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+        }
+        .courseTitleSec {
+          width: 100%;
+          padding: 0 0 0 1.5em;
+        }
+      }
+    }
+  }
+  .dashboardCourseListing {
+    .courseListingRow {
+      b {
+        width: 100%;
+        a {
+          color: #000;
+          &:hover {
+            color: $armd_green;
+          }
+        }
+      }
+      .progress {
+        margin: 0;
+        width: 100%;
+      }
+    }
+  }
+  .dashboardAnnouncmentListing {
+    .announcmentListingRow {
+      b {
+        width: 100%;
+        display: block;
+        a {
+          color: $armd_green;
+          display: block;
+          width: 100%;
+          i {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+  .learnerDashboardActivitySec {
+    display: flex;
+    .profilePage {
+      width: 50%;
+      .userAvatar {
+        width: 30em;
+      }
+    }
+    .learnerActivitySec {
+      width: 36%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .activeBlockSec {
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      font-size: 5em;
+      color: $armd_green;
+      .activeContent {
+        font-size: 14px;
+        padding-left: 20px;
+        color: #000;
+        b {
+          font-size: 3em;
+          display: block;
+          text-align: center;
+          color: $armd_green;
+        }
+        h6 {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.modal {
+  .modal-content {
+    .tableMaterial {
+      display: none;
+    }
+  }
+  &.materialActive {
+    .modal-content {
+      .tableMaterial {
+        display: table;
+      }
+      .tableCourse {
+        display: none;
+      }
+    }
+  }
+  .modal-body {
+    .addContentTable {
+      max-height: 15.5em;
+      overflow: auto;
+    }
+  }
+  &#lessonModalviewer {
+    .modal-body {
+      padding: 0;
+    }
+    .modal-footer {
+      padding: 0 1rem;
+      .btn {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+    }
+    .lessonStepContainer {
+      .lessonStep {
+        width: 100%;
+        min-height: 27em;
+        float: left;
+      }
+    }
+    .quizSec {
+      h5 {
+        line-height: 36px;
+      }
+      .quizQuestionHolder {
+        padding: 15px 30px;
+      }
+    }
+  }
+  &#mediaModalviewer {
+    .mediaViewerSec {
+      margin-bottom: 1em;
+      audio,
+      video {
+        width: 100%;
+      }
+      img {
+        max-width: 100%;
+      }
+    }
+    .modal-footer {
+      &.editFooterMode {
+        display: none;
+      }
+    }
+    .modal-body {
+      .mediaEditView {
+        display: none;
+        .updateMediaBtnHolder {
+          margin-bottom: 1rem;
+          .custom-file {
+            &.customBtnFile {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+    &.editModalView {
+      .modal-footer {
+        display: none;
+        &.editFooterMode {
+          display: flex;
+        }
+      }
+      .modal-body {
+        .mediaDetailView {
+          display: none;
+        }
+        .mediaEditView {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.dataTables_wrapper {
+  .infoBar {
+    float: left;
+  }
+  .materialsInfoBar {
+    float: left;
+  }
+}
+
+table {
+  &.table {
+    thead {
+      tr {
+        th {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+  &.tableGrid {
+    a {
+      color: $armd_green;
+    }
+  }
+}
+
+.loginContainer {
+  float: left;
+  width: 100%;
+  position: relative;
+  .loginBgSec {
+    float: left;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.2);
+    }
+    video {
+      object-fit: cover;
+      float: left;
+      width: 100%;
+      height: 100vh;
+    }
+  }
+  .loginFormContainer {
+    float: left;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    min-height: 100vh;
+    position: relative;
+    .loginFormWrapper {
+      background: #fff;
+      border-radius: 4px;
+      padding: 3em 2em;
+      width: 100%;
+      max-width: 700px;
+      .loginLogoSec {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .forgotSec {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        & > a {
+          color: $armd_green;
+        }
+      }
+    }
+  }
+}
+.progress-bar {
+  color: #333;
+}

@@ -1,0 +1,46 @@
+<ng-template #lessonContentModalTemplate>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">Select Content Type</h5>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="lessonContentModalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- <div class="row text-center">
+          <div class="col-sm-4 mb-1">
+              <button class="btn btn-green">Document</button>
+          </div>
+          <div class="col-sm-4 mb-1">
+              <button class="btn btn-green">Multimedia</button>
+          </div>
+          <div class="col-sm-4 mb-1">
+              <button class="btn btn-green">Quiz</button>
+          </div>
+      </div> -->
+    <select class="form-control" [(ngModel)]="selectedContentType">
+      <option
+        [value]="contentType[option]"
+        *ngFor="let option of contentTypeOptions"
+      >
+        {{ option }}
+      </option>
+    </select>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-green add-content" type="button" (click)="onSave()">
+      Save
+    </button>
+    <button
+      class="btn btn-dark"
+      type="button"
+      (click)="lessonContentModalRef.hide()"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>

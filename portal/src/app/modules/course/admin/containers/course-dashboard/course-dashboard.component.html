@@ -1,0 +1,132 @@
+<div class="container-fluid">
+  <div class="row adminCardHolder">
+    <div class="col-md-3" *lmsAccessPermission="['Admin']">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-cogs"></i> Course Information
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li>
+              <a [routerLink]="'/course/edit/' + course?.id"
+                >Edit Basic Course Information</a
+              >
+            </li>
+            <li *ngIf="false">
+              <a href="/courses--course--required-prerequisites.html"
+                >Add Required Prerequisites</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" *lmsAccessPermission="['Admin']">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-book"></i> Course Content
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li>
+              <a [routerLink]="'/course/' + course?.id + '/content'"
+                >Manage Course Content</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-clipboard-list"></i> Course Roster
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li>
+              <a [routerLink]="'/course/' + course?.id + '/roster'"
+                >Manage Roster</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-file-alt"></i> Course Assignments
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li>
+              <a [routerLink]="'/course/' + course?.id + '/assignment'"
+                >Manage Course Assignments</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" *ngIf="false">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-copy"></i> Copy Course
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li>
+              <a href="/courses--course--copy-course.html">Copy Course</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" *ngIf="false">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-user-graduate"></i> Course Grade
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li>
+              <a href="javascript:void(0);">Quiz and Assignment Gradebook</a>
+            </li>
+            <li>
+              <a href="javascript:void(0);"
+                >Grades For Items Completed Outside this site</a
+              >
+            </li>
+            <li><a href="javascript:void(0);">Manage Course Grade</a></li>
+            <li>
+              <a href="javascript:void(0);"
+                >Registered Learners’ Course Grade</a
+              >
+            </li>
+            <li><a href="javascript:void(0);">Mark Course Completion</a></li>
+            <li>
+              <a href="javascript:void(0);">Mark Expired Course Completion</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" *ngIf="false">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-medal"></i> Select Certificate
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li>
+              <a href="/courses--course--select-certificate.html"
+                >Select Certificate</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

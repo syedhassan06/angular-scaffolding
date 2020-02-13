@@ -1,0 +1,54 @@
+<div class="modal-header">
+  <h5 class="modal-title pull-left">
+    {{ course?.title }} ( {{ course?.first_name + ' ' + course?.last_name }} )
+  </h5>
+  <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"
+    (click)="bsModalRef.hide()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-12 ui-widget">
+      <p-table
+        [value]="courseLesson"
+        tableStyleClass="table table table-striped table-bordered tableGrid"
+        #dealerGroupTable
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Lesson</th>
+            <th>Status</th>
+            <th>Progress</th>
+            <th>Start Date</th>
+            <th>Completed Date</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-lesson>
+          <tr>
+            <td style="max-width:150px !important;min-width: 150px !important;">
+              {{ lesson?.title }}
+            </td>
+            <td>{{ lesson?.status }}</td>
+            <td>
+              <div class="courseProgressHolder mt-3">
+                <lms-progressbar [value]="lesson?.progress"></lms-progressbar>
+              </div>
+            </td>
+            <td>{{ lesson?.starting_date }}</td>
+            <td>{{ lesson?.completion_date }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-dark" type="button" (click)="bsModalRef.hide()">
+    Close
+  </button>
+</div>

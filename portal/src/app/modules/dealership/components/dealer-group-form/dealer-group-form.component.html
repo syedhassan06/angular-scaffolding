@@ -1,0 +1,108 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>{{ page[action]['title'] }}</h2>
+        <!--
+          <div><a class="btn btn-dark mr-1" href="/admin.html"><i class="fas fa-arrow-alt-circle-left iconLeft"></i>Back</a></div>
+        -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb customBreadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/dealer/group-manage">All Dealer Groups</a>
+          </li>
+          <li class="breadcrumb-item active"><a>Dealer Group</a></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <form action="" [formGroup]="dealerGroupForm">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label>Dealer Group Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder=""
+                  formControlName="name"
+                  lmsValidationBorder
+                />
+                <div class="invalid-feedback" ngxErrors="name">
+                  <div when="touched" [ngxError]="['required']">
+                    Dealer group name is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label>Status</label>
+                <select class="form-control" formControlName="is_active">
+                  <option value="0">In-active</option>
+                  <option value="1">Active</option>
+                </select>
+                <div class="invalid-feedback" ngxErrors="is_active">
+                  <div when="touched" [ngxError]="['required']">
+                    This field is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <section class="d-none">
+              <div class="row">
+                <div class="col-md-5 mb-3">
+                  <label for="country">Country</label>
+                  <select
+                    class="custom-select d-block w-100"
+                    id="country"
+                    required=""
+                  >
+                    <option value="">Choose...</option>
+                    <option>United States</option>
+                  </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="state">State</label>
+                  <select
+                    class="custom-select d-block w-100"
+                    id="state"
+                    required=""
+                  >
+                    <option value="">Choose...</option>
+                    <option>California</option>
+                  </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label for="zip">Zip</label>
+                  <input class="form-control" id="zip" type="text" />
+                </div>
+              </div>
+            </section>
+
+            <div class="text-center mt-4">
+              <button
+                class="btn btn-green mx-1"
+                type="button"
+                [disabled]="
+                  dealerGroupForm?.invalid || dealerGroupForm?.invalid
+                "
+                (click)="onSave()"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,188 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>Learner Report</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 d-none">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb customBreadcrumb">
+          <li class="breadcrumb-item active">
+            <a href="javascript:void(0)">My Course</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="javascript:void(0)">My Material</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="javascript:void(0)">My Expired Items</a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <table
+            class="d-none table table table-striped table-bordered tableGrid dataGrid  text-center"
+            id="reportAllCourse"
+            style="width:100%"
+          >
+            <thead class="thead-dark">
+              <tr>
+                <th width="25%">Course</th>
+                <th>Status</th>
+                <th>Percentage Completed</th>
+                <th>Registration Date</th>
+                <th>Completion Date</th>
+                <th>Expiration Date</th>
+                <th>Certificate Expiration</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let course of courses">
+                <td>{{ course?.title }}</td>
+                <td>{{ course?.status }}</td>
+                <td>{{ course?.progress + '%' }}</td>
+                <td>{{ course?.registration_date }}</td>
+                <td>
+                  {{
+                    ((course?.status | lowercase) === 'completed' &&
+                      course?.completion_date) ||
+                      ''
+                  }}
+                </td>
+                <td>{{ course?.expiration_date }}</td>
+                <td>
+                  {{
+                    ((course?.status | lowercase) === 'completed' &&
+                      course?.certificate_expiration_date) ||
+                      ''
+                  }}
+                </td>
+                <td>
+                  <a
+                    pTooltip="Print Certificate"
+                    tooltipPosition="top"
+                    class="btn btn-link"
+                    href="javascript:void(0);"
+                    *ngIf="(course?.status | lowercase) === 'completed'"
+                    (click)="generateCertificate(course)"
+                    ><i class="fas fa-print"></i
+                  ></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p-table
+            [value]="courses"
+            [paginator]="true"
+            [rows]="20"
+            [rowHover]="true"
+            selectionMode="single"
+            tableStyleClass="table table table-striped table-bordered tableGrid"
+            [globalFilterFields]="tableFilters"
+            #lmsDt
+            [scrollable]="true"
+            [scrollHeight]="'1000px'"
+          >
+            <ng-template pTemplate="caption">
+              <div class="filterbar">
+                <div class="form-inline">
+                  <div class="form-group mb-2">
+                    <select class="form-control d-none">
+                      <option value="Filter Courses">Filter Materials</option>
+                      <option selected="selected" [value]="1">Active</option>
+                      <option selected="selected" [value]="0">In-active</option>
+                    </select>
+                  </div>
+                  <div class="form-group ml-auto mb-2">
+                    <label class="mr-2">Search</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      (input)="
+                        lmsDt.filterGlobal($event.target.value, 'contains')
+                      "
+                    />
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+                  {{ col.header }}
+                  <p-sortIcon
+                    [field]="col.field"
+                    *ngIf="col.field"
+                  ></p-sortIcon>
+                </th>
+              </tr>
+              <tr
+                lms-column-filter
+                [cols]="cols"
+                [table]="lmsDt"
+                class="filter-cols"
+              ></tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-course>
+              <tr>
+                <td>{{ course?.title }}</td>
+                <td>{{ course?.status }}</td>
+                <td>
+                  <div class="courseProgressHolder mt-2">
+                    <lms-progressbar
+                      [value]="course?.progress"
+                    ></lms-progressbar>
+                  </div>
+                </td>
+                <td>{{ course?.registration_date }}</td>
+                <td>{{ course?.starting_date }}</td>
+                <td>
+                  {{
+                    ((course?.status | lowercase) === 'completed' &&
+                      course?.completion_date) ||
+                      ''
+                  }}
+                </td>
+                <td>{{ course?.expiration_date }}</td>
+                <td>
+                  {{
+                    ((course?.status | lowercase) === 'completed' &&
+                      course?.certificate_expiration_date) ||
+                      ''
+                  }}
+                </td>
+                <td>
+                  <a
+                    pTooltip="Print Certificate"
+                    tooltipPosition="top"
+                    class="btn btn-link"
+                    href="javascript:void(0);"
+                    *ngIf="(course?.status | lowercase) === 'completed'"
+                    (click)="generateCertificate(course)"
+                    ><i class="fas fa-print"></i
+                  ></a>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="left: -99999999999px;position: relative;">
+  <lms-certificate
+    [course]="selectedCourse"
+    (resetPDF$)="onResetPDF($event)"
+  ></lms-certificate>
+</div>

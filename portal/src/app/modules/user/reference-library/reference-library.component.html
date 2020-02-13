@@ -1,0 +1,138 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>{{ resourceCategory[type]['title'] }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="refrenceLibrarySec">
+        <div class="card">
+          <div class="card-body">
+            <p-table
+              [value]="materials"
+              [paginator]="true"
+              [rows]="20"
+              [rowHover]="true"
+              selectionMode="single"
+              tableStyleClass="table table table-striped table-bordered tableGrid"
+              [globalFilterFields]="tableFilters"
+              #coursetable
+            >
+              <ng-template pTemplate="caption">
+                <div class="filterbar">
+                  <div class="form-inline mb-2">
+                    <div class="form-group mb-2">
+                      <!-- <p-dropdown [options]="[{label:'Course Status',value:null},{label:'Active',value:'Active'},{label:'In-active',value:'In-active'}]" [style]="{'width':'100%'}" (onChange)="coursetable.filter($event.value && $event.value.toString(),'isActive','equals')" styleClass="dt-filter">
+
+                          </p-dropdown> -->
+                    </div>
+                    <div class="form-group ml-auto">
+                      <label class="mr-2">Search</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        (input)="
+                          coursetable.filterGlobal(
+                            $event.target.value,
+                            'contains'
+                          )
+                        "
+                      />
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <!-- <th>-</th> -->
+                  <th
+                    *ngFor="let col of columns"
+                    [pSortableColumn]="(col.sortable && col.field) || null"
+                  >
+                    {{ col.header }}
+                    <p-sortIcon
+                      *ngIf="col.sortable"
+                      [field]="col.field"
+                    ></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-resource>
+                <tr>
+                  <td>
+                    <a
+                      href="javascript:void(0)"
+                      *ngIf="resource?.resource === 'pdf'"
+                      (click)="onClickModal(resource)"
+                      >{{ resource?.resource_name }}</a
+                    >
+                    <a *ngIf="resource?.resource !== 'pdf'">{{
+                      resource?.resource_name
+                    }}</a>
+                  </td>
+                  <td>
+                    <!-- <i class="fas fa-trash-alt pointer" style="cursor: pointer;" (click)="onOpenConfirmModal(resource,template)"></i> -->
+                    <a
+                      class="mr-1"
+                      [attr.href]="'/secure-files/' + resource?.resource_path"
+                      download=""
+                      *ngIf="resource[type + '_downloaded']"
+                    >
+                      <i
+                        class="fas fa-download"
+                        style="cursor: pointer;"
+                        pTooltip="Download"
+                        tooltipPosition="top"
+                      ></i>
+                    </a>
+                    <a
+                      class=""
+                      href="javascript:void(0);"
+                      *ngIf="resource?.resource === 'pdf'"
+                    >
+                      <i
+                        class="fas fa-eye"
+                        style="cursor: pointer;"
+                        pTooltip="View"
+                        tooltipPosition="top"
+                        (click)="onClickModal(resource)"
+                      ></i>
+                    </a>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalTemplate>
+  <div class="modal-header" style="padding:0.5rem">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="padding: 0.5rem">
+    <iframe
+      [src]="selectedResource?.resource_path_other"
+      frameborder="0"
+      width="100%"
+      height="700"
+    ></iframe>
+  </div>
+</ng-template>

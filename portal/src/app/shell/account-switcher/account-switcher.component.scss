@@ -1,0 +1,33 @@
+.switcher-loading-icon {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #eaeaea;
+  opacity: 0.8;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 2222;
+  i {
+    display: inline-block;
+    animation: rotation 2s infinite linear;
+    font-size: 35px;
+  }
+  .switcher-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #2f574f;
+  }
+}
+
+@keyframes rotation {
+  50% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}

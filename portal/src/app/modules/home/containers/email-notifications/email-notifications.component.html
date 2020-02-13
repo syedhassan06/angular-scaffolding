@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>Manage Email Settings</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb customBreadcrumb">
+          <li class="breadcrumb-item  active"><a>All Emails</a></li>
+          <!--
+            <li class="breadcrumb-item"><a routerLink="/email-setting/create">Create Setting</a></li>
+          -->
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div>
+            <lms-email-notification-list
+              [emailSettings]="emailSettings"
+              (delete$)="deleteEmailSetting($event)"
+              (save$)="saved($event)"
+            ></lms-email-notification-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

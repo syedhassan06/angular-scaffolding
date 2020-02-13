@@ -1,0 +1,213 @@
+<h4 class="border-bottom pb-3 mb-4">Manage Course Roster</h4>
+
+<div class="">
+  <div class="row">
+    <div class="col-md-12">
+      <ngx-spinner
+        bdOpacity="0.9"
+        bdColor="rgb(228, 228, 228,0.9)"
+        size="medium"
+        color="#305850"
+        type="ball-clip-rotate-multiple"
+        fullScreen="false"
+      >
+      </ngx-spinner>
+      <div class="row">
+        <div class="col-md-5 p-0">
+          <h6 class="armd-picklist-header">Available Learners</h6>
+          <div class="row">
+            <div class="col-md-12 mb-2 mt-2">
+              <div class="custom-control custom-checkbox">
+                <input
+                  class="custom-control-input"
+                  type="checkbox"
+                  id="select-available-dealer"
+                  (click)="onCheckAllUsers('available-dealers')"
+                />
+                <label
+                  class="custom-control-label"
+                  for="select-available-dealer"
+                  >Select All</label
+                >
+              </div>
+            </div>
+          </div>
+          <p-tree
+            [value]="availableUsers?.dataSource"
+            selectionMode="checkbox"
+            [(selection)]="availableUsers.selected"
+            styleClass="w-100"
+          >
+            <ng-template let-node pTemplate="default">
+              <h6 class="m-0 available-dealers">{{ node.label }}</h6>
+            </ng-template>
+            <ng-template let-node pTemplate="dealership-user">
+              {{ node.label }}
+            </ng-template>
+          </p-tree>
+        </div>
+        <div class="col-md-2">
+          <button
+            class="btn btn-green btn-block mb-2"
+            (click)="onCourseUserAssigned()"
+          >
+            <i class="fas fa-chevron-right"></i>
+          </button>
+          <div class="clearfix"></div>
+          <button
+            class="btn btn-green btn-block"
+            (click)="onCourseUserUnAssigned()"
+          >
+            <i class="fas fa-chevron-left"></i>
+          </button>
+        </div>
+        <div class="col-md-5 p-0">
+          <h6 class="armd-picklist-header">Learners Enrolled In This Course</h6>
+          <div class="row">
+            <div class="col-md-12 mb-2 mt-2">
+              <div class="custom-control custom-checkbox">
+                <input
+                  class="custom-control-input"
+                  type="checkbox"
+                  id="select-assigned-dealer"
+                  (click)="onCheckAllUsers('assigned-dealers')"
+                />
+                <label class="custom-control-label" for="select-assigned-dealer"
+                  >Select All</label
+                >
+              </div>
+            </div>
+          </div>
+          <p-tree
+            [value]="assignedUsers?.dataSource"
+            selectionMode="checkbox"
+            [(selection)]="assignedUsers.selected"
+            styleClass="w-100"
+          >
+            <ng-template let-node pTemplate="default">
+              <h6 class="m-0 assigned-dealers">{{ node.label }}</h6>
+            </ng-template>
+            <ng-template let-node pTemplate="dealership-user">
+              {{ node.label }}
+            </ng-template>
+          </p-tree>
+        </div>
+      </div>
+
+      <!-- <p-pickList (onMoveToTarget)="onCourseUserAssigned($event)" (onMoveToSource)="onCourseUserUnAssigned($event)" [source]="user?.availableUsers" dragdrop="true" [target]="user?.assignedUsers" [responsive]="true" [filterBy]="'email'" sourceFilterPlaceholder="Search with email" targetFilterPlaceholder="Search with email" [showSourceControls]="false" [showTargetControls]="false" sourceHeader="Available Learners" targetHeader="Learners Enrolled In This Course">
+        <ng-template let-user pTemplate="item">
+          <div>
+            {{ user.first_name }} {{ user.last_name }} ({{ user.email }})
+          </div>
+        </ng-template>
+      </p-pickList> -->
+      <div class="card d-none">
+        <div class="card-body">
+          <!--
+            <div class="filterbar">
+                          <form class="form-inline">
+                            <div class="form-group mb-2">
+                              <label class="mr-2">View a report from:</label>
+                              <select class="form-control">
+                                <option>First Name</option>
+                                <option>Last Name</option>
+                                <option>Username</option>
+                              </select>
+                            </div>
+                            <div class="form-group mb-2">
+                              <label class="mr-2 mx-sm-3">Filter By User Group</label>
+                              <select class="form-control"><option>[All Groups]</option>
+            <option>Certified F&amp;I Agency</option>
+            <option>Coast Honda_NJ</option>
+            <option>Coast Honda_NJ Business development</option>
+            <option>Coast Honda_NJ CCO</option>
+            <option>Coast Honda_NJ Finance</option>
+            <option>Coast Honda_NJ Fixed Operations</option>
+            <option>Coast Honda_NJ Sales Staff</option>
+            <option>Coast Honda_NJ Senior Management</option>
+            <option>F&amp;I Training</option>
+                              </select>
+                            </div>
+                            <div class="form-group ml-auto">
+                              <label class="mr-2">Search</label>
+                              <input class="form-control" type="text">
+                            </div>
+                          </form>
+                        </div>
+          -->
+          <div class="rosterSec mt-3 d-none">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group mb-2">
+                  <label>Available Learners</label>
+                  <select class="form-control" multiple="multiple" size="12">
+                    <option>Abby Valle (abbyvalle@riomotors.com)</option>
+                    <option>Adam Serino (aserino38@gmail.com)</option>
+                    <option
+                      >Adam Richardson
+                      (arichardson@stanleyautogroup.com)</option
+                    >
+                    <option>Adrian Zgoda (azgoda@stanleyautogroup.com)</option>
+                    <option>Adrianna Cruz (Adrianna@nutleyauto.com)</option>
+                    <option>Alejandro Mero (alex@nutleyauto.com)</option>
+                    <option
+                      >Alfonso Augustine
+                      (alfonso.augustine@theldsgroup.com)</option
+                    >
+                    <option>Alondra Garza (lony08.ag@gmail.com)</option>
+                    <option
+                      >Alondra Maldonado (amaldonado1018@gmail.com)</option
+                    >
+                    <option>Alyssa George (alyssa@nutleyauto.com)</option>
+                    <option
+                      >Amanda Navarro (anavarro@stanleyautogroup.com)</option
+                    >
+                    <option>Amanda Doop (adopp@mullertoyota.com)</option>
+                    <option>Amber Wade (awade)</option>
+                    <option>Amber Client (client@wildcatdigital.com)</option>
+                    <option>Amber Tester (ambertester)</option>
+                    <option>Amber Tester (ambertesterUA)</option>
+                  </select>
+                </div>
+              </div>
+              <div
+                class="col-md-4 d-flex align-items-center justify-content-center addRoster"
+              >
+                <div class="text-center mt-4">
+                  <button class="btn btn-green mb-2" type="button">Add</button>
+                  <div class="clearfix"></div>
+                  <button class="btn btn-dark" type="button">Remove</button>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group mb-2">
+                  <label>Learners Enrolled In This Course</label>
+                  <select class="form-control" multiple="multiple" size="12">
+                    <option
+                      >Amanda Muller (amanda@mullerpowersports.com)</option
+                    >
+                    <option>James Todd (jtodd@mullerpowersports.com)</option>
+                    <option
+                      >Michele Zedaker
+                      (mzedaker@worldclassdealerservices.com)</option
+                    >
+                    <option
+                      >Mike Tuno (mtuno@worldclassdealerservices.com)</option
+                    >
+                    <option>Nicholas Cuono (ncuono@mullersports.com)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--
+            <div class="mt-4">
+              <button class="btn btn-green" type="button">Save</button>
+              <button class="btn btn-dark" type="button">Cancel</button>
+            </div>
+          -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

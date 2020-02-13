@@ -1,0 +1,50 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>Manage Users</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb customBreadcrumb">
+          <li class="breadcrumb-item  active">
+            <a routerLink="/user/manage">All Users</a>
+          </li>
+          <li
+            class="breadcrumb-item"
+            *lmsAccessPermission="['Admin', 'Manager']"
+          >
+            <a routerLink="/user/create">Create User</a>
+          </li>
+          <li
+            class="breadcrumb-item"
+            *lmsAccessPermission="['Admin', 'Manager']"
+          >
+            <a routerLink="/user/import">Import Users</a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div>
+            <lms-user-list
+              [users]="users"
+              (delete$)="deleteUser($event)"
+              (updateStatus$)="savedStatus($event)"
+              (sendEmail$)="sendEmail($event)"
+            ></lms-user-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

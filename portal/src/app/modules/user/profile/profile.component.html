@@ -1,0 +1,80 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>My Profile</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="profilePage">
+            <div class="userAvatar">
+              <div class="userAvatarHolder">
+                <img
+                  alt="avatar"
+                  [lmsImgProfile]="{
+                    profile_image: user?.profile_image,
+                    profile_image_type: user?.profile_image_type
+                  }"
+                />
+              </div>
+              <div class="avatarBtnHolder">
+                <a class="btn btn-dark" routerLink="/user/profile/edit"
+                  ><i class="fas fa-user iconLeft"></i>Edit Profile
+                </a>
+              </div>
+            </div>
+            <div class="userDetailSec">
+              <h4 class="border-bottom">
+                {{ user?.first_name }} {{ user?.last_name }}
+              </h4>
+
+              <dl class="row">
+                <ng-container *ngIf="user?.email">
+                  <dt class="col-sm-2">Email:</dt>
+                  <dd class="col-sm-9">{{ user?.email }}</dd>
+                </ng-container>
+                <ng-container *ngIf="user?.address_street1">
+                  <dt class="col-sm-2">Address Line 1:</dt>
+                  <dd class="col-sm-9">{{ user?.address_street1 }}</dd>
+                </ng-container>
+                <ng-container *ngIf="user?.address_street2">
+                  <dt class="col-sm-2">Address Line 2:</dt>
+                  <dd class="col-sm-9">{{ user?.address_street2 }}</dd>
+                </ng-container>
+                <ng-container *ngIf="user?.country">
+                  <dt class="col-sm-2">Country:</dt>
+                  <dd class="col-sm-9">{{ user?.country }}</dd>
+                </ng-container>
+                <ng-container *ngIf="user?.state">
+                  <dt class="col-sm-2">State:</dt>
+                  <dd class="col-sm-9">{{ user?.state }}</dd>
+                </ng-container>
+                <ng-container *ngIf="user?.zip">
+                  <dt class="col-sm-2">Zip Code:</dt>
+                  <dd class="col-sm-9">{{ user?.zip }}</dd>
+                </ng-container>
+
+                <ng-container *ngIf="user?.landline">
+                  <dt class="col-sm-2">Phone:</dt>
+                  <dd class="col-sm-9">{{ user?.landline }}</dd>
+                </ng-container>
+                <ng-container *ngIf="user?.mobile">
+                  <dt class="col-sm-2">Mobile:</dt>
+                  <dd class="col-sm-9">{{ user?.mobile }}</dd>
+                </ng-container>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

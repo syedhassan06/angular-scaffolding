@@ -1,0 +1,21 @@
+<div class="row mt-3 px-3">
+  <div class="col-md-12">
+    <div
+      class="materialListRow mb-2 border-bottom border-black pb-1"
+      *ngFor="let item of assignments"
+    >
+      <i
+        class="fas fa-times text-danger mr-4 cursor-pointer"
+        (click)="onOpenConfirmModal(item)"
+        pTooltip="Delete"
+        tooltipPosition="top"
+      ></i>
+      <b class="highlight-text" (click)="onEditAssignment(item)">
+        <span>{{ item?.title }}</span>
+      </b>
+      <div class="assignment-count">
+        <span>{{ item?.no_of_submissions || 0 | number: '2.0-0' }}</span>
+      </div>
+    </div>
+  </div>
+</div>

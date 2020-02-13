@@ -1,0 +1,178 @@
+<div class="row" *ngIf="assignments?.due?.length > 0">
+  <div class="col-md-12">
+    <h5 class="mt-4 pb-2 border-bottom">Assignments</h5>
+  </div>
+  <div class="col-md-12">
+    <div
+      class="assignment-wrapper"
+      *ngFor="let assignment of assignments?.due; let lessonIndex = index"
+    >
+      <div
+        class="col-md-12 assignmentLearnerRow"
+        [ngClass]="{
+          'no-border-bottom': !(
+            assignment?.submitted_assignment?.length > 0 &&
+            (assignment?.submitted_assignment)[0]?.comments?.length > 0
+          )
+        }"
+      >
+        <div class="assignmentLearnerCol">
+          <!-- <i class="fas fa-file-alt pr-2"></i> -->
+          <h4 class="assignment-title">
+            <span>{{ assignment?.title }}</span
+            ><i
+              pTooltip="Download"
+              tooltipPosition="top"
+              class="fas fa-download cursor-pointer ml-3"
+              (click)="onDownloadFile(assignment?.resource_name)"
+            ></i>
+          </h4>
+          <div class="mt-3" [innerHTML]="assignment?.description"></div>
+        </div>
+        <span
+          class="assignmentLearnerCol action"
+          *ngIf="!(assignment?.submitted_assignment?.length > 0)"
+        >
+          <button type="file" class="btn btn-dark btn-sm upload-btn">
+            <label> <i class="fas fa-upload pr-2"></i>Upload File </label>
+            <input
+              type="file"
+              class="upload"
+              (change)="onAddedAssignmentQue($event, assignment)"
+            />
+          </button>
+          <button
+            (click)="onAssignmentSubmit(assignment)"
+            class="btn btn-dark btn-sm upload-btn"
+            *ngIf="
+              (assignmentQue | selectedSubmitAssignment: assignment)
+                ?.assignment_id
+            "
+          >
+            Submit Assignment
+          </button>
+          <h6
+            class="text mt-2 mb-0"
+            *ngIf="
+              (assignmentQue | selectedSubmitAssignment: assignment)
+                ?.assignment_id
+            "
+          >
+            <i
+              class="fas fa-times pr-2 text-danger"
+              (click)="onRemoveAssignmentSubmission(assignment)"
+            ></i>
+            {{
+              (assignmentQue | selectedSubmitAssignment: assignment)
+                ?.assignment_file?.name
+            }}
+          </h6>
+        </span>
+        <span
+          *ngIf="assignment?.submitted_assignment?.length > 0"
+          class="assignmentLearnerCol action"
+        >
+          <table class="d-inline-block assignment-info">
+            <tr>
+              <td>File Submission:</td>
+              <td
+                class="cursor-pointer assignment-submission"
+                (click)="
+                  onDownloadFile(
+                    (assignment?.submitted_assignment)[0]?.submitted_file_name
+                  )
+                "
+              >
+                <img src="assets/img/assignment-download.png" />
+                <span class="assignment-name">
+                  {{
+                    (assignment?.submitted_assignment)[0]?.submitted_file_name
+                  }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>Submitted Date:</td>
+              <td>{{ (assignment?.submitted_assignment)[0]?.submitted_at }}</td>
+            </tr>
+            <tr *ngIf="(assignment?.submitted_assignment)[0]?.marks_obtained">
+              <td>Marks Obtained:</td>
+              <td>
+                {{ (assignment?.submitted_assignment)[0]?.marks_obtained }}
+              </td>
+            </tr>
+            <tr *ngIf="(assignment?.submitted_assignment)[0]?.grade">
+              <td>Grade:</td>
+              <td>
+                <span class="badge badge-primary">
+                  {{ (assignment?.submitted_assignment)[0]?.grade }}
+                </span>
+              </td>
+            </tr>
+            <!-- <tr>
+                          <td>Grade:</td>
+                          <td><i class="fas fa-check-circle text-success"></i></td>
+                        </tr> -->
+          </table>
+        </span>
+      </div>
+      <div class="col-12 comments-list">
+        <div
+          class="col-md-12 mb-3"
+          [ngClass]="{
+            'mb-3': assignment['showComments'],
+            'mb-1': !assignment['showComments']
+          }"
+        >
+          <a
+            *ngIf="(assignment?.submitted_assignment)[0]?.comments?.length > 0"
+            href="javascript:void(0)"
+            class="link"
+            (click)="onToggleComments(assignment)"
+          >
+            <span class="mr-1">
+              {{
+                !assignment['showComments'] ? 'Show Comments' : 'Hide Comments'
+              }}
+            </span>
+            <i
+              class="fas"
+              [ngClass]="{
+                'fa-caret-down': assignment['showComments'],
+                'fa-caret-up': !assignment['showComments']
+              }"
+            >
+            </i>
+          </a>
+        </div>
+        <div
+          class="col-md-12"
+          *ngIf="assignment['showComments']"
+          [@slideUpDown]
+        >
+          <ul class="list-unstyled">
+            <li class="media">
+              <img
+                class="mr-3"
+                src="/assets/img/user.png"
+                alt="{{ assignment?.title }}"
+              />
+              <div class="media-body">
+                <h6 class="media-head">
+                  {{ (assignment?.submitted_assignment)[0]?.commented_by }}
+                  <small>
+                    <i
+                      >Posted on
+                      {{ (assignment?.submitted_assignment)[0]?.commented_at }}
+                    </i>
+                  </small>
+                </h6>
+                <p>{{ (assignment?.submitted_assignment)[0]?.comments }}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

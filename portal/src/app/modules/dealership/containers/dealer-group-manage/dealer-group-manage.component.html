@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>Manage Dealer Groups</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb customBreadcrumb">
+          <li class="breadcrumb-item  active">
+            <a routerLink="/dealer/group-manage">All Dealer Groups</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a routerLink="/dealer/group-create">Create Dealer Group</a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div>
+            <lms-dealer-group-list
+              [dealerGroups]="dealerGroups"
+              (delete$)="deleteDealerGroup($event)"
+              (showModal$)="onShowDealership($event)"
+              (shownManager$)="onShownManagerModal($event)"
+              [dealerManagerModalSettings]="dealerManagerModalSettings"
+              [dealerModalSettings]="dealerModalSettings"
+            ></lms-dealer-group-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

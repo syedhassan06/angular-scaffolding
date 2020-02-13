@@ -1,0 +1,110 @@
+<p-table
+  [value]="dealerGroups"
+  exportFilename="Dealergroups"
+  [paginator]="true"
+  [rows]="20"
+  [rowHover]="true"
+  selectionMode="single"
+  tableStyleClass="table table table-striped table-bordered tableGrid"
+  [globalFilterFields]="tableFilters"
+  #lmsDt
+>
+  <ng-template pTemplate="caption">
+    <div class="filterbar">
+      <div class="form-inline">
+        <div class="form-group mb-2 d-none">
+          <p-dropdown
+            [options]="[
+              { label: 'All Dealer Groups', value: null },
+              { label: 'Active', value: 1 },
+              { label: 'In-active', value: 0 }
+            ]"
+            [style]="{ width: '100%' }"
+            (onChange)="
+              lmsDt.filter(
+                $event.value && $event.value.toString(),
+                'is_active',
+                'equals'
+              )
+            "
+            styleClass="dt-filter"
+          >
+          </p-dropdown>
+        </div>
+        <div class="form-group mb-2 d-none">
+          <button class="btn btn-dark" (click)="lmsDt.exportCSV()">
+            <i class="fas fa-file-export pr-1"></i>
+            Export
+          </button>
+        </div>
+        <div class="form-group ml-auto mb-2">
+          <label class="mr-2">Search</label>
+          <input
+            class="form-control"
+            type="text"
+            (input)="lmsDt.filterGlobal($event.target.value, 'contains')"
+          />
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th
+        *ngFor="let col of cols"
+        [pSortableColumn]="col.field"
+        [ngClass]="{ 'text-center': col.field === 'dealership_count' }"
+      >
+        {{ col.header }}
+        <p-sortIcon [field]="col.field" *ngIf="col.field"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-dealer>
+    <tr>
+      <!--
+        <td class="text-center">
+          <div class="custom-control custom-checkbox custom-without-text custom-control-inline">
+              <input class="custom-control-input" [attr.id]="'customCheck'+resource?.id" type="checkbox">
+              <label class="custom-control-label" [attr.for]="'customCheck1'+resource?.id"></label>
+            </div>
+        </td>
+      -->
+      <td>
+        <a [routerLink]="'/dealer/group-edit/' + dealer?.id">{{
+          dealer?.name
+        }}</a>
+      </td>
+      <td
+        class="text-center"
+        style="cursor: pointer"
+        pTooltip="Show Dealerships"
+        tooltipPosition="top"
+      >
+        <span class="badge badge-green" (click)="onOpenDealerModal(dealer)">{{
+          dealer?.dealership_count | number: '2.0-0' || 0
+        }}</span>
+      </td>
+      <td>{{ status[(dealer?.is_active)] }}</td>
+      <td>
+        <a
+          href="javascript:void(0);"
+          (click)="onOpenConfirmModal(dealer)"
+          pTooltip="Delete"
+          tooltipPosition="top"
+        >
+          <i class="fas fa-trash-alt"></i>
+        </a>
+        <a
+          class="ml-1 cursor-pointer "
+          href="javascript:void(0);"
+          (click)="onOpenManagerModal(dealer)"
+          pTooltip="Associate Managers"
+          tooltipPosition="top"
+        >
+          <i class="fas fa-user-tie cursor-pointer "></i>
+        </a>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

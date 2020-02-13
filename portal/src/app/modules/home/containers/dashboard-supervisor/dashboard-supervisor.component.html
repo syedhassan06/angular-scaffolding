@@ -1,0 +1,156 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="pageHeader d-flex justify-content-between bd-highlight mb-3 pb-3"
+      >
+        <h2>Administrator Home</h2>
+        <!--
+          <div>
+          <button type="button" class="btn btn-dark"><i class="fas fa-file-alt iconLeft"></i>Create Report</button>
+          </div>
+        -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row adminCardHolder">
+    <div class="col-md-3" *lmsAccessPermission="'Admin'">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-folder"></i> Materials
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li><a routerLink="/material/upload">Upload Materials</a></li>
+            <li><a routerLink="/material/manage">Manage Materials</a></li>
+            <!--
+              <li><a href="/materials--material--import-certificate.html">Import Certificate Template</a></li>
+            -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" *lmsAccessPermission="'Admin'">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-bars"></i> Lessons
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li><a routerLink="/lesson/manage">Manage Lessons</a></li>
+            <li><a routerLink="/lesson/create">Create Lesson</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-bars"></i> Courses
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li><a routerLink="/course/manage-list">Manage Courses</a></li>
+            <li *lmsAccessPermission="'Admin'">
+              <a routerLink="/course/create">Create Course</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" *lmsAccessPermission="['Admin', 'Manager']">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-list"></i>
+          <span *lmsAccessPermission="'Admin'">Dealergroups & Dealerships</span>
+          <span *lmsAccessPermission="'Manager'">Dealerships</span>
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li *lmsAccessPermission="'Admin'">
+              <a routerLink="/dealer/group-manage">Manage Dealergroups</a>
+            </li>
+            <li><a routerLink="/dealer/manage">Manage Dealerships</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-user"></i> Users
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li><a routerLink="/user/manage">Manage Users</a></li>
+            <li *lmsAccessPermission="['Admin', 'Manager']">
+              <a routerLink="/user/create">Create User</a>
+            </li>
+            <li *lmsAccessPermission="['Admin', 'Manager']">
+              <a routerLink="/user/import">Import Users</a>
+            </li>
+            <!-- <li><a href="javascript:void(0);">Import Users</a></li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" *ngIf="false">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-wrench"></i> Publishing Tool
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li><a href="javascript:void(0);">Publishing Tool</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-chart-bar"></i> Reports
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li><a routerLink="/report">View Reports</a></li>
+            <li><a routerLink="/report/schedule">Schedule Reports</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" *lmsAccessPermission="'Admin'">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-cog"></i> Site Settings
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li><a routerLink="/site-settings">Site Settings</a></li>
+            <!--
+              <li><a href="javascript:void(0);">Download User Guide</a></li>
+            -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3" *lmsAccessPermission="'Admin'">
+      <div class="card">
+        <div class="card-header text-white bg-black">
+          <i class="fas fa-envelope"></i> Email Settings
+        </div>
+        <div class="card-body">
+          <ul class="list">
+            <li><a routerLink="/email-setting">Manage Email Settings</a></li>
+            <!--
+              <li><a routerLink="/email-setting/create">Create Email Setting</a></li>
+            -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
